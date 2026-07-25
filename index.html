@@ -151,17 +151,20 @@
         inset: 0;
         z-index: -2;
         background:
-          linear-gradient(90deg, rgba(12, 10, 8, 0.95) 5%, rgba(12, 10, 8, 0.58) 47%, rgba(12, 10, 8, 0.18) 100%),
-          linear-gradient(0deg, rgba(12, 10, 8, 0.96), transparent 55%),
+          linear-gradient(90deg, rgba(12, 10, 8, 0.68) 5%, rgba(12, 10, 8, 0.34) 47%, rgba(12, 10, 8, 0.1) 100%),
+          linear-gradient(0deg, rgba(12, 10, 8, 0.78), rgba(12, 10, 8, 0.02) 67%),
           url("assets/hero-atheer.png") center / cover no-repeat;
         content: "";
-        filter: saturate(0.82) contrast(1.08);
+        filter: brightness(1.3) saturate(0.92) contrast(1.04);
       }
       .hero::after {
         position: absolute;
         inset: 0;
         z-index: -1;
-        background: radial-gradient(circle at 75% 22%, rgba(224, 193, 127, 0.18), transparent 22%);
+        background:
+          radial-gradient(circle at 28% 47%, rgba(224, 193, 127, 0.2), transparent 28%),
+          radial-gradient(circle at 75% 22%, rgba(224, 193, 127, 0.18), transparent 22%),
+          linear-gradient(90deg, rgba(224, 193, 127, 0.08), transparent 42%);
         content: "";
         mix-blend-mode: screen;
       }
@@ -343,13 +346,25 @@
         .nav-links .nav-cta { text-align: center; }
         .menu-toggle { position: relative; z-index: 2; display: block; }
         .hero { min-height: 100svh; }
-        .hero::before { background: linear-gradient(180deg, rgba(12, 10, 8, 0.32), rgba(12, 10, 8, 0.72) 48%, rgba(12, 10, 8, 0.98) 92%), url("assets/hero-atheer.png") 57% center / cover no-repeat; }
-        .hero-content { padding-bottom: 75px; }
-        h1 { margin-top: 24px; font-size: clamp(82px, 27vw, 130px); }
-        h1 small { margin-top: 18px; font-size: 17px; }
-        .hero-copy { max-width: 330px; font-size: 11px; line-height: 2.2; }
-        .hero-actions { gap: 15px; }
-        .gold-button, .ghost-button { padding: 11px 15px; font-size: 10px; }
+        .hero::before {
+          background:
+            linear-gradient(180deg, rgba(12, 10, 8, 0.08) 0%, rgba(12, 10, 8, 0.12) 30%, rgba(12, 10, 8, 0.72) 69%, rgba(12, 10, 8, 0.94) 100%),
+            url("assets/atheer-gift-set.png") center 18% / cover no-repeat;
+          filter: brightness(1.22) saturate(0.94) contrast(1.02);
+        }
+        .hero::after {
+          background:
+            radial-gradient(ellipse at 50% 29%, rgba(224, 193, 127, 0.28), transparent 37%),
+            linear-gradient(180deg, rgba(224, 193, 127, 0.08), transparent 54%);
+        }
+        .hero-content { width: min(100% - 28px, 620px); padding-bottom: 52px; }
+        .eyebrow { gap: 8px; font-size: 8px; letter-spacing: 0.12em; }
+        .eyebrow::before { width: 27px; }
+        h1 { margin: 20px 0 16px; font-size: clamp(64px, 22vw, 100px); line-height: 0.78; }
+        h1 small { margin-top: 16px; font-size: clamp(15px, 4.4vw, 19px); }
+        .hero-copy { max-width: 100%; font-size: 10px; line-height: 2.1; }
+        .hero-actions { flex-wrap: wrap; gap: 10px; margin-top: 19px; }
+        .gold-button, .ghost-button { gap: 9px; padding: 10px 12px; font-size: 9px; }
         .hero-scroll { display: none; }
         .section, .gallery, .experience { padding: 82px 0; }
         .section-heading { display: block; margin-bottom: 35px; }
