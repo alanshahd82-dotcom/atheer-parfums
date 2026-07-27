@@ -400,6 +400,47 @@
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       }
+    
+        /* ===== CATALOG SECTION ===== */
+        .catalog { padding: 140px 0; background: var(--ink); }
+        .catalog-header { margin-bottom: 54px; }
+        .catalog-tabs { display: flex; gap: 0; margin-top: 32px; border-bottom: 1px solid var(--line); }
+        .catalog-tab { padding: 11px 28px; border: 1px solid transparent; border-bottom: none; background: none; color: var(--muted); font-family: "Noto Kufi Arabic", sans-serif; font-size: 11px; letter-spacing: 0.12em; cursor: pointer; transition: 0.25s ease; position: relative; bottom: -1px; }
+        .catalog-tab.active { border-color: var(--line); background: var(--ink); color: var(--gold-light); }
+        .catalog-tab:hover:not(.active) { color: var(--cream); }
+        .catalog-panel { display: none; }
+        .catalog-panel.active { display: block; }
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 18px; padding-top: 36px; }
+        .catalog-card { position: relative; background: var(--ink-card); border: 1px solid rgba(224,193,127,0.14); overflow: hidden; transition: border-color 0.3s ease, transform 0.3s ease; cursor: pointer; }
+        .catalog-card:hover { border-color: rgba(224,193,127,0.4); transform: translateY(-4px); }
+        .catalog-card-img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: contain; padding: 18px 12px 10px; background: linear-gradient(180deg, rgba(33,25,18,0.6) 0%, rgba(12,10,8,0.2) 100%); filter: saturate(0.88); transition: filter 0.4s ease, transform 0.5s ease; }
+        .catalog-card:hover .catalog-card-img { filter: saturate(1.05); transform: scale(1.04); }
+        .catalog-card-info { padding: 10px 14px 14px; border-top: 1px solid rgba(224,193,127,0.12); }
+        .catalog-card-name { display: block; color: var(--cream); font-size: 11px; font-weight: 500; line-height: 1.5; text-align: center; }
+        .catalog-cta-wrap { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 56px; }
+        .catalog-count { color: var(--muted); font-size: 10px; letter-spacing: 0.12em; }
+        /* ===== CTA STRIP ===== */
+        .cta-strip { padding: 28px 0; background: var(--ink-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
+        .cta-strip-track { display: flex; gap: 54px; animation: marquee 22s linear infinite; white-space: nowrap; width: max-content; }
+        .cta-strip-track span { color: var(--gold-light); font-size: 11px; letter-spacing: 0.15em; display: inline-flex; align-items: center; gap: 18px; }
+        .cta-strip-track span::after { width: 5px; height: 5px; background: var(--gold); content: ""; border-radius: 50%; display: inline-block; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        /* ===== UPDATED PRICING ===== */
+        .price-block { margin: 20px 0; }
+        .price-single { font-size: 28px; color: var(--gold-light); font-family: "Cormorant Garamond", serif; font-weight: 600; line-height: 1.3; }
+        .price-single span { font-size: 13px; font-family: "Noto Kufi Arabic", sans-serif; color: var(--muted); font-weight: 400; margin-left: 6px; }
+        .price-bundle { margin-top: 8px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid var(--line); background: rgba(183,147,83,0.08); font-size: 13px; color: var(--cream); }
+        .price-bundle b { color: var(--gold-light); font-size: 18px; font-family: "Cormorant Garamond", serif; }
+        .price-bundle .delivery-tag { font-size: 9px; letter-spacing: 0.12em; color: var(--gold); padding: 3px 8px; border: 1px solid rgba(183,147,83,0.4); }
+        @media (max-width: 850px) {
+          .catalog { padding: 82px 0; }
+          .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+          .catalog-tabs { overflow-x: auto; }
+          .catalog-tab { padding: 9px 18px; font-size: 10px; }
+          .cta-strip { padding: 18px 0; }
+          .cta-strip-track span { font-size: 10px; }
+        }
+    
     </style>
   </head>
   <body>
@@ -417,6 +458,7 @@
           <a href="#perfume">العطر</a>
           <a href="#gallery">المشاهد</a>
           <a href="#experience">التجربة</a>
+          <a href="#catalog">الكتالوج</a>
           <a class="nav-cta" href="#perfume">اكتشف العطر</a>
         </nav>
         <button class="menu-toggle" type="button" aria-label="فتح القائمة" aria-controls="site-nav" aria-expanded="false">☰</button>
@@ -437,6 +479,19 @@
         <div class="hero-scroll">انزل لاكتشاف أثير</div>
       </section>
 
+
+        <div class="cta-strip" aria-hidden="true">
+          <div class="cta-strip-track">
+            <span>جرب الشبيه الأصلي بالثمن مناسب</span>
+            <span>عش تجربة العطر الأصلي</span>
+            <span>بركا ما تنفق بزاف ديال المال وانتِ عندك أثير</span>
+            <span>القارورة بـ 149 درهم · 4 قارورات بـ 199 شامل التوصيل</span>
+            <span>جرب الشبيه الأصلي بالثمن مناسب</span>
+            <span>عش تجربة العطر الأصلي</span>
+            <span>بركا ما تنفق بزاف ديال المال وانتِ عندك أثير</span>
+            <span>القارورة بـ 149 درهم · 4 قارورات بـ 199 شامل التوصيل</span>
+          </div>
+        </div>
       <section class="section section-dark" id="story" aria-labelledby="story-title">
         <div class="container story-grid">
           <div class="story-copy reveal">
@@ -461,7 +516,10 @@
             <div class="product-subtitle">THE SIGNATURE SCENT</div>
             <h2 class="product-name" id="perfume-title">ATHEER</h2>
             <div class="product-subtitle">EXTRAIT DE PARFUM · 50 ML</div>
-            <div class="price"><span>ابتداءً من</span> 790 MAD</div>
+            <div class="price-block">
+              <div class="price-single"><span>القارورة الواحدة</span> 149 MAD</div>
+              <div class="price-bundle">عرض خاص: 4 قارورات بـ <b>199 MAD</b> <span class="delivery-tag">شامل التوصيل</span></div>
+            </div>
             <div class="notes">
               <h3>THE OLFACTIVE PYRAMID · هرم الروائح</h3>
               <div class="note-grid">
@@ -478,6 +536,324 @@
         </div>
       </section>
 
+
+        <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+          <div class="container">
+            <div class="catalog-header reveal">
+              <div class="section-label">03 · الكتالوج</div>
+              <h2 class="section-title serif" id="catalog-title">كتالوج<br /><span style="color:var(--gold-light)">العطور</span></h2>
+              <p style="color:var(--muted);font-size:12px;margin:14px 0 0;max-width:440px;line-height:2.2">73 عطراً بهوية راقية — نسائية ورجالية. كل قارورة بـ<strong style="color:var(--gold-light)"> 149 درهم</strong> أو اختر 4 بـ<strong style="color:var(--gold-light)"> 199 درهم</strong> شاملة التوصيل.</p>
+              <div class="catalog-tabs">
+                <button class="catalog-tab active" data-tab="femme" type="button">Parfums Femme · نسائية (39)</button>
+                <button class="catalog-tab" data-tab="homme" type="button">Parfums Homme · رجالية (34)</button>
+              </div>
+            </div>
+            <div class="catalog-panel active" id="tab-femme">
+              <div class="catalog-grid reveal">
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - j'adore" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">j'adore</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Si Passione" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Si Passione</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Alien" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Alien</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Zara Femme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Zara Femme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Evidance" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Evidance</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - My Way" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">My Way</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Chance Chanel" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Chance Chanel</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - La nuit tresor" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">La nuit tresor</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Miss Dior Chérie" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Miss Dior Chérie</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Mon Paris" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Mon Paris</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Amirat l3arab" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Amirat l3arab</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - YARA" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">YARA</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - La vie est belle" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">La vie est belle</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - SCANDAL" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">SCANDAL</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Coco Mademoiselle" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Coco Mademoiselle</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Olympea" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Olympea</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Escada Taj" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Escada Taj</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Libre" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Libre</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - L'Interdit" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">L'Interdit</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Giordani gold" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Giordani gold</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Good girl" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Good girl</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Because It's You" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Because It's You</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Light blue" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Light blue</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Burberry Her" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Burberry Her</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Gucci Flora" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Gucci Flora</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Kayali perfume" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Kayali perfume</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Dolce&Gabbana The one" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Dolce&Gabbana The one</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - LANCOME IDOLE" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">LANCOME IDOLE</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Baccarat rouge 540" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Baccarat rouge 540</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Goddess" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Goddess</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Éclat Femme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Éclat Femme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Amber Elixir" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Amber Elixir</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - قمة" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">قمة</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Girl Of Now" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Girl Of Now</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Paco Rabanne Femme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Paco Rabanne Femme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Cristal Noir" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Cristal Noir</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Black Opium" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Black Opium</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - يدرع العود" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">يدرع العود</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Hypnotic Poison" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Hypnotic Poison</span></div>
+            </div>
+              </div>
+            </div>
+            <div class="catalog-panel" id="tab-homme">
+              <div class="catalog-grid reveal">
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Sauvage" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Sauvage</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Bleu de Chanel" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Bleu de Chanel</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - One Million" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">One Million</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Invictus" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Invictus</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Eros (Versace)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Eros (Versace)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Lacoste Noir" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Lacoste Noir</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Black XS" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Black XS</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Hugo Boss" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Hugo Boss</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - La Nuit de l'Homme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">La Nuit de l'Homme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Dolce & Gabbana" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Dolce & Gabbana</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Chrome (Azzaro)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Chrome (Azzaro)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Diesel Only The Brave" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Diesel Only The Brave</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Gucci Oud" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Gucci Oud</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Armani Code" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Armani Code</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - 212 VIP Men" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">212 VIP Men</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Zara Homme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Zara Homme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Yves Saint Laurent (Y)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Yves Saint Laurent (Y)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Dior Fahrenheit" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Dior Fahrenheit</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Stronger With You Oud" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Stronger With You Oud</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Stronger With You Absolutely" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Stronger With You Absolutely</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Scandal Pour Homme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Scandal Pour Homme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Jean Paul Gaultier" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Jean Paul Gaultier</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Tom Ford Black Orchid" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Tom Ford Black Orchid</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Wanted By Night (Azzaro)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Wanted By Night (Azzaro)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - One Million Elixir" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">One Million Elixir</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Tobacco Vanille (Tom Ford)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Tobacco Vanille (Tom Ford)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Acqua Di Giò (Giorgio Armani)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Acqua Di Giò (Giorgio Armani)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Valentino Uomo" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Valentino Uomo</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Prada L'Homme" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Prada L'Homme</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Aventus (Creed)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Aventus (Creed)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Just Cavalli For Men" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Just Cavalli For Men</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Boss Bottled" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Boss Bottled</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - CK One (Calvin Klein)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">CK One (Calvin Klein)</span></div>
+            </div>
+            <div class="catalog-card">
+              <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="قارورة أثير - Roses Vanille (Mancera)" loading="lazy" />
+              <div class="catalog-card-info"><span class="catalog-card-name">Roses Vanille (Mancera)</span></div>
+            </div>
+              </div>
+            </div>
+            <div class="catalog-cta-wrap reveal">
+              <span class="catalog-count">73 عطر متاح</span>
+              <a class="gold-button" href="https://wa.me/212661852411" target="_blank" rel="noopener">اطلب عبر واتساب <span>←</span></a>
+            </div>
+          </div>
+        </section>
       <section class="gallery" id="gallery" aria-labelledby="gallery-title">
         <div class="container">
           <div class="section-heading reveal">
@@ -538,8 +914,8 @@
             <p class="footer-copy">عطر فاخر بهوية مغربية أصيلة. لأن بعض الآثار لا تُرى، لكنها تبقى.</p>
           </div>
           <div class="footer-links">
-            <div><h4>اكتشف</h4><a href="#story">الحكاية</a><a href="#perfume">العطر</a><a href="#gallery">المشاهد</a></div>
-            <div><h4>تواصل</h4><a href="#contact">Instagram</a><a href="#contact">WhatsApp</a><a href="mailto:hello@atheer.ma">hello@atheer.ma</a></div>
+            <div><h4>اكتشف</h4><a href="#story">الحكاية</a><a href="#perfume">العطر</a><a href="#catalog">الكتالوج</a><a href="#gallery">المشاهد</a></div>
+            <div><h4>تواصل</h4><a href="#contact">Instagram</a><a href="https://wa.me/212661852411" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:hello@atheer.ma">hello@atheer.ma</a></div>
           </div>
         </div>
         <div class="footer-bottom"><span>© 2026 ATHEER · ALL RIGHTS RESERVED</span><span>حضور يترك أثراً</span></div>
@@ -548,6 +924,21 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script>
+        // Pricing constants
+        const PRICE_SINGLE = 149;
+        const PRICE_BUNDLE_4 = 199;
+
+        // Catalog tabs
+        document.querySelectorAll(".catalog-tab").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".catalog-tab").forEach((b) => b.classList.remove("active"));
+            document.querySelectorAll(".catalog-panel").forEach((p) => p.classList.remove("active"));
+            btn.classList.add("active");
+            const panel = document.getElementById("tab-" + btn.dataset.tab);
+            if (panel) panel.classList.add("active");
+          });
+        });
+    
       const header = document.getElementById("site-header");
       const nav = document.getElementById("site-nav");
       const menuToggle = document.querySelector(".menu-toggle");
