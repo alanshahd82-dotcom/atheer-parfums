@@ -1,450 +1,19 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0c0a08" />
-    <meta
-      name="description"
-      content="أثير — عطر فاخر بهوية مغربية أصيلة. أثر يبقى في الهواء."
-    />
-    <title>أثير | أثر يبقى في الهواء</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --ink: #0c0a08;
-        --ink-soft: #17120d;
-        --ink-card: #211912;
-        --cream: #f3ecdf;
-        --muted: #b9ab96;
-        --gold: #b79353;
-        --gold-light: #e0c17f;
-        --jade: #5d7c67;
-        --line: rgba(224, 193, 127, 0.28);
-        --shadow: 0 26px 70px rgba(0, 0, 0, 0.38);
-      }
 
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        overflow-x: hidden;
-        background: var(--ink);
-        color: var(--cream);
-        font-family: "Noto Kufi Arabic", sans-serif;
-        line-height: 1.9;
-      }
-      body.menu-open { overflow: hidden; }
-      a { color: inherit; text-decoration: none; }
-      button { color: inherit; font: inherit; cursor: pointer; }
-      .container { width: min(1180px, calc(100% - 56px)); margin: 0 auto; }
-      .serif { font-family: "Cormorant Garamond", serif; }
 
-      .grain {
-        position: fixed;
-        inset: 0;
-        z-index: 20;
-        pointer-events: none;
-        opacity: 0.045;
-        background-image: url("assets/zellige-detail.png");
-        background-size: 720px;
-        mix-blend-mode: soft-light;
-      }
-
-      .announcement {
-        position: fixed;
-        top: 18px;
-        left: 22px;
-        z-index: 60;
-        padding: 7px 12px;
-        border: 1px solid var(--line);
-        background: rgba(12, 10, 8, 0.66);
-        color: var(--gold-light);
-        font-size: 9px;
-        letter-spacing: 0.16em;
-        backdrop-filter: blur(16px);
-      }
-
-      header {
-        position: fixed;
-        inset: 0 0 auto;
-        z-index: 50;
-        padding: 23px 0;
-        border-bottom: 1px solid transparent;
-        transition: 0.35s ease;
-      }
-      header.scrolled {
-        padding: 14px 0;
-        border-color: rgba(224, 193, 127, 0.14);
-        background: rgba(12, 10, 8, 0.9);
-        backdrop-filter: blur(18px);
-      }
-      .nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .logo {
-        display: inline-flex;
-        flex-direction: column;
-        line-height: 1;
-      }
-      .logo strong {
-        font-size: 25px;
-        font-weight: 500;
-        letter-spacing: 0.15em;
-      }
-      .logo small {
-        margin-top: 6px;
-        color: var(--gold-light);
-        direction: ltr;
-        font-family: "Cormorant Garamond", serif;
-        font-size: 12px;
-        letter-spacing: 0.3em;
-        text-align: right;
-      }
-      .nav-links { display: flex; align-items: center; gap: 32px; color: #ded3c0; font-size: 11px; }
-      .nav-links a { position: relative; transition: color 0.25s ease; }
-      .nav-links a::after {
-        position: absolute;
-        right: 0;
-        bottom: -8px;
-        width: 0;
-        height: 1px;
-        background: var(--gold-light);
-        content: "";
-        transition: width 0.3s ease;
-      }
-      .nav-links a:hover { color: var(--gold-light); }
-      .nav-links a:hover::after { width: 100%; }
-      .nav-links .nav-cta {
-        padding: 9px 17px;
-        border: 1px solid var(--line);
-        color: var(--gold-light);
-      }
-      .nav-links .nav-cta::after { display: none; }
-      .menu-toggle {
-        display: none;
-        padding: 8px;
-        border: 0;
-        background: none;
-        color: var(--gold-light);
-        font-size: 21px;
-      }
-
-      .hero {
-        position: relative;
-        min-height: 100svh;
-        display: flex;
-        align-items: flex-end;
-        isolation: isolate;
-        overflow: hidden;
-        background: var(--ink);
-      }
-      .hero::before {
-        position: absolute;
-        inset: 0;
-        z-index: -2;
-        background:
-          linear-gradient(90deg, rgba(12, 10, 8, 0.5) 5%, rgba(12, 10, 8, 0.2) 47%, rgba(12, 10, 8, 0.04) 100%),
-          linear-gradient(0deg, rgba(12, 10, 8, 0.58), rgba(12, 10, 8, 0.01) 67%),
-          url("assets/hero-atheer.png") center / cover no-repeat;
-        content: "";
-        filter: brightness(1.7) saturate(1.08) contrast(1.06);
-      }
-      .hero::after {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background:
-          radial-gradient(circle at 28% 47%, rgba(224, 193, 127, 0.2), transparent 28%),
-          radial-gradient(circle at 75% 22%, rgba(224, 193, 127, 0.18), transparent 22%),
-          linear-gradient(90deg, rgba(224, 193, 127, 0.08), transparent 42%);
-        content: "";
-        mix-blend-mode: screen;
-      }
-      .hero-content { width: min(1180px, calc(100% - 56px)); margin: 0 auto; padding-bottom: 105px; }
-      .eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        color: var(--gold-light);
-        font-size: 10px;
-        letter-spacing: 0.18em;
-      }
-      .eyebrow::before { width: 47px; height: 1px; background: var(--gold); content: ""; }
-      h1 {
-        margin: 28px 0 18px;
-        color: var(--cream);
-        font-size: clamp(86px, 15vw, 192px);
-        font-weight: 500;
-        line-height: 0.72;
-        letter-spacing: 0.03em;
-      }
-      h1 small {
-        display: block;
-        margin-top: 25px;
-        color: var(--gold-light);
-        font-family: "Noto Kufi Arabic", sans-serif;
-        font-size: clamp(17px, 3vw, 32px);
-        letter-spacing: -0.08em;
-        line-height: 1.5;
-      }
-      .hero-copy { max-width: 470px; color: #ded3c0; font-size: 13px; line-height: 2.35; }
-      .hero-actions { display: flex; align-items: center; gap: 22px; margin-top: 27px; }
-      .gold-button, .ghost-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 17px;
-        padding: 13px 20px;
-        border: 1px solid transparent;
-        transition: 0.3s ease;
-      }
-      .gold-button { background: var(--gold); color: #17100a; }
-      .gold-button:hover { background: var(--gold-light); transform: translateY(-2px); }
-      .ghost-button { border-color: var(--line); color: var(--gold-light); }
-      .ghost-button:hover { border-color: var(--gold-light); background: rgba(224, 193, 127, 0.08); }
-      .hero-scroll {
-        position: absolute;
-        right: 50%;
-        bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: var(--muted);
-        font-size: 9px;
-        transform: translateX(50%);
-      }
-      .hero-scroll::before { width: 35px; height: 1px; background: var(--gold); content: ""; }
-
-      .section { position: relative; padding: 140px 0; }
-      .section-dark { background: var(--ink); }
-      .section-soft { background: #f1e8d9; color: var(--ink); }
-      .section-heading {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 30px;
-        margin-bottom: 54px;
-      }
-      .section-label { color: var(--gold-light); font-size: 10px; letter-spacing: 0.17em; }
-      .section-soft .section-label { color: #8c6931; }
-      .section-title { margin: 10px 0 0; font-size: clamp(32px, 5vw, 62px); font-weight: 500; line-height: 1.35; letter-spacing: -0.08em; }
-      .section-intro { max-width: 365px; margin: 0; color: var(--muted); font-size: 12px; line-height: 2.25; }
-      .section-soft .section-intro { color: #756a5b; }
-
-      .story-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 100px; align-items: center; }
-      .story-copy p { max-width: 520px; color: #cfc1aa; font-size: 14px; line-height: 2.65; }
-      .story-copy p:first-of-type::first-letter { float: right; padding-left: 8px; color: var(--gold-light); font-size: 55px; line-height: 0.75; }
-      .ornament {
-        position: relative;
-        display: grid;
-        place-items: center;
-        max-width: 420px;
-        aspect-ratio: 1;
-        margin: auto;
-        background: url("assets/zellige-detail.png") center / cover;
-        box-shadow: var(--shadow);
-      }
-      .ornament::before { position: absolute; inset: 10%; border: 1px solid var(--line); content: ""; transform: rotate(45deg); }
-      .ornament::after { position: absolute; inset: 19%; border: 1px solid rgba(224, 193, 127, 0.6); content: ""; transform: rotate(22.5deg); }
-      .ornament-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(12, 10, 8, 0.2), rgba(12, 10, 8, 0.76)); }
-      .ornament-label { position: relative; z-index: 1; color: var(--gold-light); font-size: 11px; letter-spacing: 0.12em; }
-
-      .product-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
-      .product-visual {
-        position: relative;
-        min-height: 620px;
-        display: grid;
-        place-items: center;
-        background: radial-gradient(ellipse at center, rgba(185, 153, 93, 0.2), transparent 48%);
-      }
-      .product-visual::before, .product-visual::after { position: absolute; border: 1px solid rgba(185, 153, 93, 0.32); content: ""; transform: rotate(45deg); }
-      .product-visual::before { width: 73%; height: 73%; }
-      .product-visual::after { width: 54%; height: 54%; border-color: rgba(93, 124, 103, 0.42); }
-      .product-shot {
-        position: relative;
-        z-index: 1;
-        width: min(61%, 390px);
-        aspect-ratio: 3 / 5;
-        object-fit: cover;
-        object-position: center;
-        filter: saturate(0.75) contrast(1.1);
-        mix-blend-mode: multiply;
-      }
-      .product-subtitle { color: #8c6931; font-family: "Cormorant Garamond", serif; font-size: 15px; letter-spacing: 0.2em; direction: ltr; }
-      .product-name { margin: 11px 0 0; color: var(--ink); font-family: "Cormorant Garamond", serif; font-size: clamp(76px, 10vw, 126px); font-weight: 500; line-height: 0.85; letter-spacing: 0.04em; }
-      .price { margin-top: 26px; color: #8c6931; font-size: 22px; }
-      .price span { margin-left: 9px; color: #756a5b; font-size: 10px; }
-      .notes { margin-top: 35px; padding-top: 21px; border-top: 1px solid rgba(140, 105, 49, 0.28); }
-      .notes h3 { margin: 0 0 17px; color: #8c6931; font-family: "Cormorant Garamond", serif; font-size: 15px; letter-spacing: 0.11em; direction: ltr; text-align: right; }
-      .note-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-      .note-grid div { color: #554a3d; font-size: 11px; }
-      .note-grid small { display: block; margin-top: 5px; color: #8b7d69; font-size: 9px; line-height: 1.8; }
-      .product-actions { display: flex; gap: 15px; margin-top: 34px; }
-      .section-soft .gold-button { border: 0; background: #a37f42; }
-      .section-soft .ghost-button { border-color: rgba(140, 105, 49, 0.45); color: #8c6931; }
-
-      .gallery { padding: 140px 0; background: var(--ink); }
-      .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 220px; gap: 14px; }
-      .gallery-card { position: relative; min-height: 0; margin: 0; overflow: hidden; border: 1px solid rgba(224, 193, 127, 0.17); background: var(--ink-card); }
-      .gallery-card img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.82) contrast(1.06); transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.8s ease; }
-      .gallery-card:hover img { transform: scale(1.045); filter: saturate(1) contrast(1.08); }
-      .gallery-card::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(8, 6, 5, 0.92)); content: ""; pointer-events: none; }
-      .gallery-card figcaption { position: absolute; right: 22px; bottom: 17px; left: 22px; z-index: 1; display: flex; flex-direction: column; gap: 2px; }
-      .gallery-card strong { color: var(--cream); font-size: 13px; font-weight: 500; }
-      .gallery-card span { color: var(--gold-light); font-size: 9px; }
-      .gallery-wide { grid-column: span 6; }
-      .gallery-tall { grid-column: span 3; grid-row: span 2; }
-      .gallery-square { grid-column: span 3; }
-
-      .trust { padding: 38px 0; border-top: 1px solid rgba(224, 193, 127, 0.14); border-bottom: 1px solid rgba(224, 193, 127, 0.14); background: var(--ink-soft); }
-      .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-      .trust-item { display: flex; align-items: center; gap: 14px; padding-right: 20px; border-right: 1px solid var(--line); }
-      .trust-item:first-child { border-right: 0; padding-right: 0; }
-      .trust-icon { color: var(--gold-light); font-size: 21px; }
-      .trust-item b { display: block; font-size: 11px; font-weight: 500; }
-      .trust-item small { display: block; margin-top: 2px; color: var(--muted); font-size: 8px; }
-
-      .experience { padding: 140px 0; background: #efe5d4; color: var(--ink); }
-      .experience .section-title { color: var(--ink); }
-      .experience .section-intro { color: #756a5b; }
-      .experience-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 75px; align-items: center; }
-      .experience-image { position: relative; min-height: 500px; overflow: hidden; }
-      .experience-image img { width: 100%; height: 100%; min-height: 500px; display: block; object-fit: cover; filter: saturate(0.75); }
-      .experience-image::after { position: absolute; inset: 0; border: 1px solid rgba(140, 105, 49, 0.45); content: ""; transform: scale(0.93); }
-      .experience-points { display: grid; gap: 23px; }
-      .experience-point { display: grid; grid-template-columns: 42px 1fr; gap: 15px; padding-bottom: 20px; border-bottom: 1px solid rgba(140, 105, 49, 0.22); }
-      .experience-point b { color: #a37f42; font-family: "Cormorant Garamond", serif; font-size: 26px; font-weight: 500; }
-      .experience-point strong { display: block; color: #251c13; font-size: 13px; font-weight: 500; }
-      .experience-point small { display: block; margin-top: 5px; color: #756a5b; font-size: 10px; line-height: 2; }
-
-      footer { padding: 62px 0 28px; border-top: 1px solid rgba(224, 193, 127, 0.17); background: #090806; }
-      .footer-top { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 44px; border-bottom: 1px solid rgba(224, 193, 127, 0.2); }
-      .footer-copy { max-width: 280px; margin-top: 15px; color: var(--muted); font-size: 10px; line-height: 2.2; }
-      .footer-links { display: flex; gap: 66px; color: var(--muted); font-size: 10px; }
-      .footer-links h4 { margin: 0 0 13px; color: var(--gold-light); font-weight: 500; }
-      .footer-links a { display: block; margin: 7px 0; transition: color 0.2s ease; }
-      .footer-links a:hover { color: var(--cream); }
-      .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 21px; color: #766d60; direction: ltr; font-size: 9px; }
-
-      .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
-      .reveal.visible { opacity: 1; transform: none; }
-      .toast { position: fixed; right: 50%; bottom: 24px; z-index: 100; padding: 11px 17px; background: var(--cream); color: var(--ink); font-size: 10px; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transform: translate(50%, 18px); transition: 0.3s ease; }
-      .toast.show { opacity: 1; transform: translate(50%, 0); }
-
-      @media (max-width: 850px) {
-        .container, .hero-content { width: min(100% - 36px, 620px); }
-        .announcement { top: auto; right: 15px; bottom: 15px; left: auto; font-size: 8px; }
-        .nav-links { position: fixed; inset: 0; display: none; flex-direction: column; align-items: stretch; justify-content: center; gap: 25px; padding: 100px 36px 40px; background: rgba(12, 10, 8, 0.98); font-size: 15px; text-align: center; }
-        .nav-links.open { display: flex; }
-        .nav-links .nav-cta { text-align: center; }
-        .menu-toggle { position: relative; z-index: 2; display: block; }
-        .hero { min-height: 100svh; }
-        .hero::before {
-          background:
-            linear-gradient(180deg, rgba(12, 10, 8, 0.04) 0%, rgba(12, 10, 8, 0.08) 30%, rgba(12, 10, 8, 0.58) 69%, rgba(12, 10, 8, 0.84) 100%),
-            url("assets/atheer-gift-set.png") center 18% / cover no-repeat;
-          filter: brightness(1.55) saturate(1.06) contrast(1.04);
-        }
-        .hero::after {
-          background:
-            radial-gradient(ellipse at 50% 29%, rgba(224, 193, 127, 0.28), transparent 37%),
-            linear-gradient(180deg, rgba(224, 193, 127, 0.08), transparent 54%);
-        }
-        .hero-content { width: min(100% - 28px, 620px); padding-bottom: 52px; }
-        .eyebrow { gap: 8px; font-size: 8px; letter-spacing: 0.12em; }
-        .eyebrow::before { width: 27px; }
-        h1 { margin: 20px 0 16px; font-size: clamp(64px, 22vw, 100px); line-height: 0.78; }
-        h1 small { margin-top: 16px; font-size: clamp(15px, 4.4vw, 19px); }
-        .hero-copy { max-width: 100%; font-size: 10px; line-height: 2.1; }
-        .hero-actions { flex-wrap: wrap; gap: 10px; margin-top: 19px; }
-        .gold-button, .ghost-button { gap: 9px; padding: 10px 12px; font-size: 9px; }
-        .hero-scroll { display: none; }
-        .section, .gallery, .experience { padding: 82px 0; }
-        .section-heading { display: block; margin-bottom: 35px; }
-        .section-intro { margin-top: 15px; font-size: 11px; }
-        .story-grid, .product-wrap, .experience-grid { grid-template-columns: 1fr; gap: 48px; }
-        .story-grid { display: flex; flex-direction: column-reverse; }
-        .story-copy p { font-size: 12px; line-height: 2.4; }
-        .ornament { max-width: 285px; }
-        .product-visual { min-height: 420px; }
-        .product-shot { width: 62%; max-width: 260px; }
-        .product-name { font-size: 67px; }
-        .note-grid { gap: 8px; }
-        .note-grid div { font-size: 10px; }
-        .note-grid small { font-size: 8px; }
-        .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; gap: 9px; }
-        .gallery-wide { grid-column: span 2; }
-        .gallery-tall { grid-column: span 1; grid-row: span 2; }
-        .gallery-square { grid-column: span 1; }
-        .gallery-card figcaption { right: 12px; bottom: 11px; left: 12px; }
-        .gallery-card strong { font-size: 10px; }
-        .gallery-card span { font-size: 7px; }
-        .trust-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
-        .trust-item, .trust-item:first-child { padding: 0; border: 0; }
-        .trust-item b { font-size: 9px; }
-        .trust-item small { font-size: 8px; }
-        .experience-image, .experience-image img { min-height: 360px; }
-        .footer-top { display: block; }
-        .footer-links { flex-wrap: wrap; gap: 34px; margin-top: 34px; }
-        .footer-bottom { display: block; line-height: 2.1; }
-        .footer-bottom span { display: block; }
-        .footer-bottom span + span { margin-top: 7px; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      }
-    
-        /* ===== CATALOG SECTION ===== */
-        .catalog { padding: 140px 0; background: var(--ink); }
-        .catalog-header { margin-bottom: 54px; }
-        .catalog-tabs { display: flex; gap: 0; margin-top: 32px; border-bottom: 1px solid var(--line); }
-        .catalog-tab { padding: 11px 28px; border: 1px solid transparent; border-bottom: none; background: none; color: var(--muted); font-family: "Noto Kufi Arabic", sans-serif; font-size: 11px; letter-spacing: 0.12em; cursor: pointer; transition: 0.25s ease; position: relative; bottom: -1px; }
-        .catalog-tab.active { border-color: var(--line); background: var(--ink); color: var(--gold-light); }
-        .catalog-tab:hover:not(.active) { color: var(--cream); }
-        .catalog-panel { display: none; }
-        .catalog-panel.active { display: block; }
-        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 18px; padding-top: 36px; }
-        .catalog-card { position: relative; background: var(--ink-card); border: 1px solid rgba(224,193,127,0.14); overflow: hidden; transition: border-color 0.3s ease, transform 0.3s ease; cursor: pointer; }
-        .catalog-card:hover { border-color: rgba(224,193,127,0.4); transform: translateY(-4px); }
-        .catalog-card-img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: contain; padding: 18px 12px 10px; background: linear-gradient(180deg, rgba(33,25,18,0.6) 0%, rgba(12,10,8,0.2) 100%); filter: saturate(0.88); transition: filter 0.4s ease, transform 0.5s ease; }
-        .catalog-card:hover .catalog-card-img { filter: saturate(1.05); transform: scale(1.04); }
-        .catalog-card-info { padding: 10px 14px 14px; border-top: 1px solid rgba(224,193,127,0.12); }
-        .catalog-card-name { display: block; color: var(--cream); font-size: 11px; font-weight: 500; line-height: 1.5; text-align: center; }
-        .catalog-cta-wrap { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 56px; }
-        .catalog-count { color: var(--muted); font-size: 10px; letter-spacing: 0.12em; }
-        /* ===== CTA STRIP ===== */
-        .cta-strip { padding: 28px 0; background: var(--ink-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
-        .cta-strip-track { display: flex; gap: 54px; animation: marquee 22s linear infinite; white-space: nowrap; width: max-content; }
-        .cta-strip-track span { color: var(--gold-light); font-size: 11px; letter-spacing: 0.15em; display: inline-flex; align-items: center; gap: 18px; }
-        .cta-strip-track span::after { width: 5px; height: 5px; background: var(--gold); content: ""; border-radius: 50%; display: inline-block; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        /* ===== UPDATED PRICING ===== */
-        .price-block { margin: 20px 0; }
-        .price-single { font-size: 28px; color: var(--gold-light); font-family: "Cormorant Garamond", serif; font-weight: 600; line-height: 1.3; }
-        .price-single span { font-size: 13px; font-family: "Noto Kufi Arabic", sans-serif; color: var(--muted); font-weight: 400; margin-left: 6px; }
-        .price-bundle { margin-top: 8px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid var(--line); background: rgba(183,147,83,0.08); font-size: 13px; color: var(--cream); }
-        .price-bundle b { color: var(--gold-light); font-size: 18px; font-family: "Cormorant Garamond", serif; }
-        .price-bundle .delivery-tag { font-size: 9px; letter-spacing: 0.12em; color: var(--gold); padding: 3px 8px; border: 1px solid rgba(183,147,83,0.4); }
-        @media (max-width: 850px) {
-          .catalog { padding: 82px 0; }
-          .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-          .catalog-tabs { overflow-x: auto; }
-          .catalog-tab { padding: 9px 18px; font-size: 10px; }
-          .cta-strip { padding: 18px 0; }
-          .cta-strip-track span { font-size: 10px; }
-        }
-    
-    </style>
-  </head>
-  <body>
-    <div class="grain" aria-hidden="true"></div>
+        <div class="cta-strip" aria-hidden="true">
+          <div class="cta-strip-track">
+            <span>جرب الشبيه الأصلي بالثمن مناسب</span>
+            <span>عش تجربة العطر الأصلي</span>
+            <span>بركا ما تنفق بزاف ديال المال وانتِ عندك أثير</span>
+            <span>🚚 توصيل مجاني على جميع الطلبات</span>
+            <span>القارورة بـ 149 درهم · 4 قارورات بـ 199 درهم</span>
+            <span>جرب الشبيه الأصلي بالثمن مناسب</span>
+            <span>عش تجربة العطر الأصلي</span>
+            <span>بركا ما تنفق بزاف ديال المال وانتِ عندك أثير</span>
+            <span>🚚 توصيل مجاني على جميع الطلبات</span>
+            <span>القارورة بـ 149 درهم · 4 قارورات بـ 199 درهم</span>
+          </div>
+        </div>
     <div class="announcement">ATHEER · DESIGN EDITION</div>
 
     <header id="site-header">
@@ -471,6 +40,7 @@
           <div class="eyebrow">EXTRAIT DE PARFUM · 50 ML</div>
           <h1 class="serif" id="hero-title">ATHEER<small>أثرٌ يبقى في الهواء</small></h1>
           <p class="hero-copy">ليس عطراً يمرّ… بل حضورٌ يترك في المكان حكاية. نفحات عميقة مستوحاة من دفء الخشب المغربي ولمعان النحاس العتيق.</p>
+          <div class="hero-delivery-badge">🚚 توصيل مجاني على جميع الطلبات</div>
           <div class="hero-actions">
             <a class="gold-button" href="#perfume">اكتشف العطر <span>←</span></a>
             <a class="ghost-button" href="#story">اقرأ الحكاية</a>
@@ -518,7 +88,8 @@
             <div class="product-subtitle">EXTRAIT DE PARFUM · 50 ML</div>
             <div class="price-block">
               <div class="price-single"><span>القارورة الواحدة</span> 149 MAD</div>
-              <div class="price-bundle">عرض خاص: 4 قارورات بـ <b>199 MAD</b> <span class="delivery-tag">شامل التوصيل</span></div>
+              <div class="price-bundle">عرض خاص: 4 قارورات بـ <b>199 MAD</b></div>
+              <div class="free-delivery-badge" style="margin-top:10px">🚚 توصيل مجاني على جميع الطلبات</div>
             </div>
             <div class="notes">
               <h3>THE OLFACTIVE PYRAMID · هرم الروائح</h3>
@@ -921,13 +492,174 @@
         <div class="footer-bottom"><span>© 2026 ATHEER · ALL RIGHTS RESERVED</span><span>حضور يترك أثراً</span></div>
       </div>
     </footer>
+
+      <!-- Cart Sidebar -->
+      <div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+      <aside class="cart-sidebar" id="cart-sidebar" aria-label="سلة المشتريات">
+        <div class="cart-header">
+          <h3>سلة المشتريات</h3>
+          <button class="cart-close" id="cart-close" type="button" aria-label="إغلاق السلة">✕</button>
+        </div>
+        <div class="cart-body" id="cart-body">
+          <div class="cart-empty" id="cart-empty">
+            <p>السلة فارغة</p>
+            <small>أضف عطوراً من الكتالوج</small>
+          </div>
+          <ul class="cart-items" id="cart-items"></ul>
+        </div>
+        <div class="cart-footer" id="cart-footer" style="display:none">
+          <div class="cart-pricing-info">
+            <div class="cart-bundle-note" id="cart-bundle-note"></div>
+            <div class="cart-total-row">
+              <span>الإجمالي</span>
+              <strong id="cart-total-price"></strong>
+            </div>
+            <div class="cart-delivery-row"><span>🚚 التوصيل</span><strong style="color:var(--gold-light)">مجاني</strong></div>
+          </div>
+          <a class="gold-button cart-whatsapp-btn" id="cart-whatsapp-btn" href="#" target="_blank" rel="noopener">إتمام الطلب عبر واتساب <span>←</span></a>
+        </div>
+      </aside>
+      <!-- Floating Cart Button -->
+      <button class="cart-float-btn" id="cart-float-btn" type="button" aria-label="فتح السلة">
+        🛒
+        <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+      </button>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script>
-        // Pricing constants
+        
+        // ── Pricing constants ──
         const PRICE_SINGLE = 149;
         const PRICE_BUNDLE_4 = 199;
+        const WA_NUMBER = "212661852411";
 
+        // ── Cart state ──
+        let cart = JSON.parse(localStorage.getItem('atheer_cart') || '[]');
+
+        function saveCart() { localStorage.setItem('atheer_cart', JSON.stringify(cart)); }
+
+        function getCartTotal() {
+          const count = cart.length;
+          const bundles = Math.floor(count / 4);
+          const singles = count % 4;
+          return (bundles * PRICE_BUNDLE_4) + (singles * PRICE_SINGLE);
+        }
+
+        function buildWALink() {
+          const lines = cart.map((n,i) => (i+1) + ". " + n).join("\n");
+          const total = getCartTotal();
+          const text = "مرحباً، أريد الطلب من أثير:\n\n" + lines + "\n\n💰 الإجمالي: " + total + " درهم\n🚚 التوصيل مجاني\n\nشكراً";
+          return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text);
+        }
+
+        function updateCartUI() {
+          const count = cart.length;
+          const badge = document.getElementById('cart-badge');
+          const empty = document.getElementById('cart-empty');
+          const itemsList = document.getElementById('cart-items');
+          const footer = document.getElementById('cart-footer');
+          const bundleNote = document.getElementById('cart-bundle-note');
+          const totalPrice = document.getElementById('cart-total-price');
+          const waBtn = document.getElementById('cart-whatsapp-btn');
+
+          // Badge
+          badge.textContent = count;
+          badge.style.display = count > 0 ? 'flex' : 'none';
+
+          // Items
+          if (count === 0) {
+            empty.style.display = 'block';
+            itemsList.style.display = 'none';
+            footer.style.display = 'none';
+          } else {
+            empty.style.display = 'none';
+            itemsList.style.display = 'block';
+            footer.style.display = 'flex';
+
+            // Build items HTML
+            itemsList.innerHTML = cart.map((name, i) => {
+              const bundles = Math.floor(cart.length / 4);
+              const isBundled = i < bundles * 4;
+              const priceLabel = isBundled ? '' : '149 MAD';
+              return '<li class="cart-item">' +
+                '<span class="cart-item-name">' + name + '</span>' +
+                '<span class="cart-item-price">' + priceLabel + '</span>' +
+                '<button class="cart-item-remove" data-idx="' + i + '" type="button" aria-label="إزالة">✕</button>' +
+              '</li>';
+            }).join('');
+
+            // Bundle note
+            const bundles = Math.floor(count / 4);
+            if (bundles > 0) {
+              bundleNote.textContent = '✦ تطبيق سعر الباقة: ' + bundles + '×4 قارورات بـ' + PRICE_BUNDLE_4 + ' درهم';
+            } else {
+              bundleNote.textContent = (4 - count) + ' قارورة أخرى للحصول على سعر الباقة (199 MAD)';
+            }
+
+            totalPrice.textContent = getCartTotal() + ' MAD';
+            waBtn.href = buildWALink();
+
+            // Remove listeners
+            itemsList.querySelectorAll('.cart-item-remove').forEach(btn => {
+              btn.addEventListener('click', () => {
+                cart.splice(parseInt(btn.dataset.idx), 1);
+                saveCart();
+                updateCartUI();
+              });
+            });
+          }
+        }
+
+        function openCart() {
+          document.getElementById('cart-sidebar').classList.add('open');
+          document.getElementById('cart-overlay').classList.add('open');
+          document.body.classList.add('menu-open');
+        }
+        function closeCart() {
+          document.getElementById('cart-sidebar').classList.remove('open');
+          document.getElementById('cart-overlay').classList.remove('open');
+          document.body.classList.remove('menu-open');
+        }
+
+        document.getElementById('cart-float-btn').addEventListener('click', openCart);
+        document.getElementById('cart-close').addEventListener('click', closeCart);
+        document.getElementById('cart-overlay').addEventListener('click', closeCart);
+
+        // Add-to-cart from catalog cards
+        document.querySelectorAll('.catalog-add-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            cart.push(btn.dataset.name);
+            saveCart();
+            updateCartUI();
+            btn.textContent = '✓ أُضيف';
+            btn.classList.add('added');
+            setTimeout(() => { btn.textContent = 'أضف للسلة +'; btn.classList.remove('added'); }, 1800);
+            // Show toast
+            toast.textContent = '✓ تمت الإضافة: ' + btn.dataset.name;
+            toast.classList.add('show');
+            clearTimeout(window.atheerToastTimer);
+            window.atheerToastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+          });
+        });
+
+        // Checkout button in catalog section
+        const checkoutBtn = document.getElementById('checkout-btn');
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+              toast.textContent = 'السلة فارغة — أضف عطوراً أولاً';
+              toast.classList.add('show');
+              clearTimeout(window.atheerToastTimer);
+              window.atheerToastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+              return;
+            }
+            window.open(buildWALink(), '_blank', 'noopener');
+          });
+        }
+
+        // Init UI on load
+        updateCartUI();
+    
         // Catalog tabs
         document.querySelectorAll(".catalog-tab").forEach((btn) => {
           btn.addEventListener("click", () => {
@@ -937,6 +669,7 @@
             const panel = document.getElementById("tab-" + btn.dataset.tab);
             if (panel) panel.classList.add("active");
           });
+        });
         });
     
       const header = document.getElementById("site-header");
