@@ -58,16 +58,18 @@
 
       .announcement {
         position: fixed;
-        top: 18px;
-        left: 22px;
+        bottom: 22px;
+        left: 50%;
+        transform: translateX(-50%);
         z-index: 60;
-        padding: 7px 12px;
+        padding: 7px 14px;
         border: 1px solid var(--line);
-        background: rgba(12, 10, 8, 0.66);
+        background: rgba(12, 10, 8, 0.82);
         color: var(--gold-light);
         font-size: 9px;
         letter-spacing: 0.16em;
         backdrop-filter: blur(16px);
+        white-space: nowrap;
       }
 
       header {
@@ -337,7 +339,7 @@
 
       @media (max-width: 850px) {
         .container, .hero-content { width: min(100% - 36px, 620px); }
-        .announcement { top: auto; right: 15px; bottom: 15px; left: auto; font-size: 8px; }
+        .announcement { bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 8px; }
         .nav-links { position: fixed; inset: 0; display: none; flex-direction: column; align-items: stretch; justify-content: center; gap: 25px; padding: 100px 36px 40px; background: rgba(12, 10, 8, 0.98); font-size: 15px; text-align: center; }
         .nav-links.open { display: flex; }
         .nav-links .nav-cta { text-align: center; }
@@ -506,6 +508,32 @@
           .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 10px; }
           .cart-float-btn { bottom: 18px; left: 14px; width: 46px; height: 46px; font-size: 19px; }
         }
+
+        /* ── Order Form Modal ── */
+        .order-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.72); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; padding: 16px; }
+        .order-overlay.open { opacity: 1; pointer-events: all; }
+        .order-modal { width: min(500px,100%); background: #14100d; border: 1px solid var(--line); box-shadow: 0 32px 80px rgba(0,0,0,.6); display: flex; flex-direction: column; max-height: 90vh; overflow-y: auto; transform: translateY(24px); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+        .order-overlay.open .order-modal { transform: translateY(0); }
+        .order-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px 16px; border-bottom: 1px solid var(--line); }
+        .order-modal-head h3 { margin: 0; color: var(--cream); font-size: 15px; font-weight: 500; }
+        .order-modal-head small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
+        .order-modal-close { border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px 8px; transition: color .2s; }
+        .order-modal-close:hover { color: var(--cream); }
+        .order-modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .order-modal-summary { padding: 14px 16px; background: rgba(183,147,83,.1); border: 1px solid rgba(183,147,83,.25); font-size: 12px; color: var(--muted); line-height: 2; }
+        .order-modal-summary strong { color: var(--gold-light); display: block; margin-bottom: 6px; font-size: 13px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .form-field { display: flex; flex-direction: column; gap: 6px; }
+        .form-field label { font-size: 10px; color: var(--gold-light); letter-spacing: .1em; }
+        .form-field input, .form-field textarea { background: rgba(255,255,255,.04); border: 1px solid var(--line); color: var(--cream); font-family: "Noto Kufi Arabic",sans-serif; font-size: 12px; padding: 10px 12px; outline: none; transition: border-color .2s; }
+        .form-field input:focus, .form-field textarea:focus { border-color: var(--gold-light); }
+        .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(179,163,140,.4); font-size: 11px; }
+        .form-field textarea { resize: none; height: 72px; line-height: 1.8; }
+        .order-required { color: #c8624a; margin-right: 2px; }
+        .order-submit-btn { width: 100%; padding: 14px; border: 0; background: var(--gold); color: #17100a; font-family: "Noto Kufi Arabic",sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .1em; cursor: pointer; transition: background .25s, transform .2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .order-submit-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .order-submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .order-modal-body { padding: 18px 16px; } }
     </style>
   </head>
   <body>
@@ -570,7 +598,7 @@
             <p>استوحينا هويته من تفاصيل المغرب العميقة: زليج يرسم الضوء، خشب منقوش يحفظ الأسرار، وقنديل نحاسي يسكب دفأه على كل لحظة.</p>
           </div>
           <figure class="story-visual reveal">
-            <img src="assets/atheer-story.webp" alt="قارورة أثير في فضاء مغربي دافئ تحيط به الفوانيس والورد والعود" decoding="async" />
+            <img src="assets/webp/atheer-story.webp" alt="قارورة أثير في فضاء مغربي دافئ تحيط به الفوانيس والورد والعود" decoding="async" />
             <figcaption>من التراث · إلى الحضور</figcaption>
           </figure>
         </div>
@@ -598,8 +626,8 @@
               </div>
             </div>
             <div class="product-actions">
-              <button class="gold-button" type="button" data-toast="هذه معاينة للهوية — سيُفعّل الطلب عند إطلاق المتجر">أضف للسلة <span>+</span></button>
-              <button class="ghost-button" type="button" data-toast="تفاصيل المنتج الكاملة ستتوفر عند إطلاق المتجر">التفاصيل</button>
+              <button class="gold-button" id="product-add-btn" type="button">أضف للسلة <span>+</span></button>
+              <button class="ghost-button" type="button" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">تصفح الكتالوج</button>
             </div>
           </div>
         </div>
@@ -1385,6 +1413,49 @@
       <button class="cart-float-btn" id="cart-float-btn" type="button" aria-label="سلة المشتريات">
         🛒<span class="cart-badge" id="cart-badge" style="display:none">0</span>
       </button>
+    <!-- Order Form Modal -->
+    <div class="order-overlay" id="order-overlay">
+      <div class="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+        <div class="order-modal-head">
+          <div>
+            <h3 id="order-modal-title">إتمام الطلب</h3>
+            <small>أدخل بياناتك وسيُرسل الطلب عبر واتساب مباشرةً</small>
+          </div>
+          <button class="order-modal-close" id="order-modal-close" type="button" aria-label="إغلاق">✕</button>
+        </div>
+        <div class="order-modal-body">
+          <div class="order-modal-summary" id="order-modal-summary"></div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="order-name">الاسم الكامل <span class="order-required">*</span></label>
+              <input type="text" id="order-name" name="name" placeholder="محمد بلعربي" autocomplete="name" required />
+            </div>
+            <div class="form-field">
+              <label for="order-phone">رقم الهاتف <span class="order-required">*</span></label>
+              <input type="tel" id="order-phone" name="phone" placeholder="0661xxxxxx" autocomplete="tel" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="order-city">المدينة <span class="order-required">*</span></label>
+              <input type="text" id="order-city" name="city" placeholder="الدار البيضاء" autocomplete="address-level2" required />
+            </div>
+            <div class="form-field">
+              <label for="order-address">العنوان <span class="order-required">*</span></label>
+              <input type="text" id="order-address" name="address" placeholder="الحي، الشارع، رقم المنزل" autocomplete="street-address" required />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="order-note">ملاحظة إضافية (اختياري)</label>
+            <textarea id="order-note" name="note" placeholder="أي تعليمات خاصة للتوصيل أو ملاحظات أخرى..."></textarea>
+          </div>
+          <button class="order-submit-btn" id="order-submit-btn" type="button">
+            إرسال الطلب عبر واتساب <span>←</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     
@@ -1396,7 +1467,6 @@
         const toast      = document.getElementById("toast");
 
         // Keep the long catalog light: swap its lazy images to the compressed WebP assets
-        // before they enter the viewport.
         document.querySelectorAll(".catalog-card-img").forEach(img => {
           img.src = img.getAttribute("src").replace("atheer-cutout.png", "webp/atheer-cutout.webp");
         });
@@ -1435,24 +1505,37 @@
         // CART SYSTEM
         // ════════════════════════════════════════════
         const PRICE_SINGLE  = 149;
-        const PRICE_BUNDLE  = 199; // per 4 bottles
+        const PRICE_BUNDLE  = 199;
         const WA_NUMBER     = "212661852411";
 
         let cart = JSON.parse(localStorage.getItem("atheer_cart") || "[]");
 
-        function saveCart()   { localStorage.setItem("atheer_cart", JSON.stringify(cart)); }
-        function cartCount()  { return cart.length; }
-        function cartTotal()  {
+        function saveCart()  { localStorage.setItem("atheer_cart", JSON.stringify(cart)); }
+        function cartTotal() {
           const bundles = Math.floor(cart.length / 4);
           const singles = cart.length % 4;
           return bundles * PRICE_BUNDLE + singles * PRICE_SINGLE;
         }
-        function buildWALink() {
-          const lines = cart.map((n,i) => (i+1) + ". " + n).join("\n");
-          const msg   = "مرحباً، أريد الطلب من أثير:\n\n" + lines
-                      + "\n\n💰 الإجمالي: " + cartTotal() + " درهم"
-                      + "\n🚚 التوصيل مجاني"
-                      + "\n\nشكراً";
+        function buildWAMessage(info) {
+          const lines = cart.map((n,i) => "   " + (i+1) + ". " + n).join("\n");
+          const bundles = Math.floor(cart.length / 4);
+          const priceNote = bundles > 0
+            ? "عرض الباقة: " + bundles + "×4 بـ " + PRICE_BUNDLE + " MAD"
+            : cart.length + " قارورة × " + PRICE_SINGLE + " MAD";
+          let msg = "🌟 *طلب جديد من أثير* 🌟\n";
+          msg += "━━━━━━━━━━━━━━━━━━━━\n\n";
+          msg += "📋 *معلومات الزبون:*\n";
+          msg += "👤 الاسم: " + info.name + "\n";
+          msg += "📞 الهاتف: " + info.phone + "\n";
+          msg += "🏙️ المدينة: " + info.city + "\n";
+          msg += "🏠 العنوان: " + info.address + "\n";
+          if (info.note.trim()) msg += "📝 ملاحظة: " + info.note.trim() + "\n";
+          msg += "\n🛍️ *العطور المطلوبة:*\n";
+          msg += lines + "\n\n";
+          msg += "💰 *الإجمالي: " + cartTotal() + " MAD*\n";
+          msg += "   (" + priceNote + ")\n";
+          msg += "🚚 التوصيل: مجاني ✓\n\n";
+          msg += "شكراً لاختياركم أثير ✨";
           return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
         }
         function showToast(msg) {
@@ -1470,7 +1553,6 @@
           const foot     = document.getElementById("cart-foot");
           const note     = document.getElementById("cart-note");
           const totalEl  = document.getElementById("cart-total");
-          const waBtn    = document.getElementById("cart-wa-btn");
 
           badge.textContent  = count;
           badge.style.display = count > 0 ? "flex" : "none";
@@ -1497,7 +1579,6 @@
               : "أضف " + (4 - count) + " عطر إضافي للحصول على سعر الباقة (199 MAD)";
 
             totalEl.textContent = cartTotal() + " MAD";
-            waBtn.href = buildWALink();
 
             list.querySelectorAll(".cart-row-del").forEach(btn => {
               btn.addEventListener("click", () => {
@@ -1519,9 +1600,34 @@
           document.body.classList.remove("menu-open");
         }
 
+        // ── Product section "أضف للسلة" button ──
+        const productAddBtn = document.getElementById("product-add-btn");
+        if (productAddBtn) {
+          productAddBtn.addEventListener("click", () => {
+            const name = "أثير | EXTRAIT DE PARFUM · 50 ML";
+            cart.push(name);
+            saveCart(); renderCart();
+            productAddBtn.textContent = "✓ أُضيف للسلة";
+            setTimeout(() => { productAddBtn.innerHTML = "أضف للسلة <span>+</span>"; }, 1800);
+            showToast("✓ أُضيف أثير إلى السلة");
+            setTimeout(() => openCart(), 500);
+          });
+        }
+
         document.getElementById("cart-float-btn").addEventListener("click", openCart);
         document.getElementById("cart-close").addEventListener("click", closeCart);
         document.getElementById("cart-overlay").addEventListener("click", closeCart);
+
+        // ── Cart sidebar "إتمام الطلب" button → open order form ──
+        const cartWaBtn = document.getElementById("cart-wa-btn");
+        if (cartWaBtn) {
+          cartWaBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (cart.length === 0) { showToast("السلة فارغة — أضف عطوراً أولاً"); return; }
+            closeCart();
+            openOrderModal();
+          });
+        }
 
         // Add-to-cart from catalog
         document.querySelectorAll(".catalog-add-btn").forEach(btn => {
@@ -1536,12 +1642,12 @@
           });
         });
 
-        // Checkout button in catalog
+        // Checkout button in catalog → open order form
         const checkoutBtn = document.getElementById("checkout-btn");
         if (checkoutBtn) {
           checkoutBtn.addEventListener("click", () => {
             if (cart.length === 0) { showToast("السلة فارغة — أضف عطوراً أولاً"); return; }
-            window.open(buildWALink(), "_blank", "noopener");
+            openOrderModal();
           });
         }
 
@@ -1554,6 +1660,70 @@
             const panel = document.getElementById("tab-" + btn.dataset.tab);
             if (panel) panel.classList.add("active");
           });
+        });
+
+        // ════════════════════════════════════════════
+        // ORDER FORM MODAL
+        // ════════════════════════════════════════════
+        function openOrderModal() {
+          const summary = document.getElementById("order-modal-summary");
+          const count   = cart.length;
+          const bundles = Math.floor(count / 4);
+          const singles = count % 4;
+          let lines = cart.map((n,i) => "<span style='color:var(--cream)'>" + (i+1) + ". " + n + "</span>").join("<br>");
+          let priceNote = bundles > 0
+            ? "عرض الباقة: " + bundles + "×4 بـ " + PRICE_BUNDLE + " MAD"
+            : singles + " قارورة × " + PRICE_SINGLE + " MAD";
+          summary.innerHTML = "<strong>🛍️ ملخص طلبك (" + count + " عطر)</strong>"
+            + lines
+            + "<br><br>💰 <strong style='color:var(--gold-light)'>الإجمالي: " + cartTotal() + " MAD</strong>"
+            + " — " + priceNote
+            + "<br>🚚 التوصيل مجاني ✓";
+          // clear form
+          ["order-name","order-phone","order-city","order-address","order-note"].forEach(id => {
+            document.getElementById(id).value = "";
+          });
+          document.getElementById("order-overlay").classList.add("open");
+          document.body.classList.add("menu-open");
+        }
+        function closeOrderModal() {
+          document.getElementById("order-overlay").classList.remove("open");
+          document.body.classList.remove("menu-open");
+        }
+
+        document.getElementById("order-modal-close").addEventListener("click", closeOrderModal);
+        document.getElementById("order-overlay").addEventListener("click", (e) => {
+          if (e.target === document.getElementById("order-overlay")) closeOrderModal();
+        });
+
+        document.getElementById("order-submit-btn").addEventListener("click", () => {
+          const name    = document.getElementById("order-name").value.trim();
+          const phone   = document.getElementById("order-phone").value.trim();
+          const city    = document.getElementById("order-city").value.trim();
+          const address = document.getElementById("order-address").value.trim();
+          const note    = document.getElementById("order-note").value;
+
+          if (!name)    { document.getElementById("order-name").focus();    showToast("يرجى إدخال الاسم الكامل"); return; }
+          if (!phone)   { document.getElementById("order-phone").focus();   showToast("يرجى إدخال رقم الهاتف");   return; }
+          if (!city)    { document.getElementById("order-city").focus();    showToast("يرجى إدخال المدينة");       return; }
+          if (!address) { document.getElementById("order-address").focus(); showToast("يرجى إدخال العنوان");       return; }
+
+          const btn = document.getElementById("order-submit-btn");
+          btn.disabled = true;
+          btn.textContent = "جاري الإرسال...";
+
+          const link = buildWAMessage({ name, phone, city, address, note });
+          window.open(link, "_blank", "noopener");
+
+          // clear cart after order
+          setTimeout(() => {
+            cart = [];
+            saveCart(); renderCart();
+            closeOrderModal();
+            showToast("✓ تم إرسال طلبك بنجاح — شكراً لك!");
+            btn.disabled = false;
+            btn.innerHTML = "إرسال الطلب عبر واتساب <span>←</span>";
+          }, 800);
         });
 
         // Init
