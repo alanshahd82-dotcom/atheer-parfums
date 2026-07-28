@@ -534,6 +534,77 @@
         .order-submit-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
         .order-submit-btn:disabled { opacity: .5; cursor: not-allowed; }
         @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .order-modal-body { padding: 18px 16px; } }
+
+        /* ── Best Sellers / Selection System ── */
+        .best-sellers { padding: 100px 0; background: var(--ink); }
+        .gender-label { margin: 44px 0 18px; color: var(--gold-light); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; }
+        .perfume-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+        .p-card { position: relative; background: var(--ink-card); border: 2px solid rgba(224,193,127,.12); overflow: hidden; cursor: pointer; transition: border-color .25s, transform .25s; }
+        .p-card:hover:not(.maxed) { border-color: rgba(224,193,127,.4); transform: translateY(-3px); }
+        .p-card.selected { border-color: var(--gold-light); background: rgba(183,147,83,.1); }
+        .p-card.maxed:not(.selected) { opacity: .42; cursor: not-allowed; }
+        .p-card-img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: contain; padding: 12px 8px 6px; background: linear-gradient(180deg,rgba(33,25,18,.6),rgba(12,10,8,.2)); filter: saturate(.88); transition: filter .3s, transform .4s; }
+        .p-card:hover:not(.maxed) .p-card-img { filter: saturate(1.05); transform: scale(1.03); }
+        .p-card.selected .p-card-img { filter: saturate(1.1); }
+        .p-card-name { display: block; color: var(--cream); font-size: 10px; font-weight: 500; text-align: center; padding: 7px 5px 10px; line-height: 1.5; }
+        .p-card-check { position: absolute; top: 7px; right: 7px; width: 22px; height: 22px; background: var(--gold-light); color: #17100a; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+        .p-card.selected .p-card-check { display: flex; }
+        /* ── Selection Counter ── */
+        .sel-counter-wrap { text-align: center; margin: 32px 0 8px; }
+        .sel-counter { display: inline-flex; align-items: center; gap: 20px; padding: 14px 28px; border: 1px solid var(--line); background: rgba(12,10,8,.85); backdrop-filter: blur(12px); }
+        .sel-counter-left { text-align: right; }
+        .sel-counter-label { font-size: 9px; color: var(--muted); letter-spacing: .14em; margin-bottom: 4px; }
+        .sel-counter-num { font-family: "Cormorant Garamond",serif; font-size: 38px; font-weight: 600; color: var(--gold-light); line-height: 1; display: inline-block; }
+        .sel-counter-num.bump { animation: numBump .4s ease forwards; }
+        @keyframes numBump { 0%{transform:scale(1)} 50%{transform:scale(1.45)} 100%{transform:scale(1)} }
+        .sel-counter-suffix { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; }
+        .sel-dots { display: flex; gap: 8px; }
+        .sel-dot { width: 32px; height: 4px; background: rgba(224,193,127,.18); transition: background .35s; border-radius: 2px; }
+        .sel-dot.filled { background: var(--gold-light); }
+        .sel-counter.complete { animation: completePulse 1.2s ease forwards; }
+        @keyframes completePulse { 0%,100%{box-shadow:none} 40%{box-shadow:0 0 0 6px rgba(224,193,127,.3),0 0 30px rgba(224,193,127,.18)} }
+        .completion-msg { margin-top: 14px; color: var(--gold-light); font-size: 12px; letter-spacing: .14em; display: none; }
+        .completion-msg.show { display: block; animation: fadeInUp .5s ease; }
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+        /* ── Full List Section ── */
+        .full-list-section { padding: 80px 0 100px; background: #f5f0e8; color: #2a1f14; }
+        .fl-section-label { color: #8c6931; font-size: 10px; letter-spacing: .17em; }
+        .fl-title { color: #1a1208; font-size: clamp(28px,4vw,52px); font-weight: 500; margin: 8px 0 10px; letter-spacing: -.06em; font-family: "Cormorant Garamond",serif; }
+        .fl-intro { color: #756a5b; font-size: 12px; line-height: 2.2; margin: 0 0 24px; max-width: 560px; }
+        .manual-input-row { display: flex; gap: 10px; margin-bottom: 44px; }
+        .manual-input-row input { flex: 1; padding: 11px 14px; border: 1px solid rgba(140,105,49,.4); background: #fff; color: #2a1f14; font-family: "Noto Kufi Arabic",sans-serif; font-size: 12px; outline: none; transition: border-color .2s; }
+        .manual-input-row input:focus { border-color: #8c6931; }
+        .manual-input-row input::placeholder { color: rgba(100,80,55,.4); }
+        .manual-input-row button { padding: 11px 20px; background: #8c6931; border: 0; color: #fff; font-family: "Noto Kufi Arabic",sans-serif; font-size: 11px; letter-spacing: .08em; cursor: pointer; transition: background .2s; white-space: nowrap; }
+        .manual-input-row button:hover { background: #a37f42; }
+        .fl-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .fl-col h3 { font-size: 13px; font-weight: 600; color: #8c6931; letter-spacing: .18em; margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(140,105,49,.25); }
+        .fl-list { list-style: none; margin: 0; padding: 0; }
+        .fl-item { display: flex; align-items: baseline; gap: 10px; padding: 5px 2px; border-bottom: 1px solid rgba(140,105,49,.1); font-size: 11px; color: #2a1f14; cursor: pointer; transition: background .15s, padding-right .15s; }
+        .fl-item:hover { background: rgba(183,147,83,.12); padding-right: 5px; }
+        .fl-item:last-child { border-bottom: 0; }
+        .fl-num { color: #8c6931; min-width: 22px; font-family: "Cormorant Garamond",serif; font-size: 12px; flex-shrink: 0; }
+        .fl-name { flex: 1; }
+        .fl-item.fl-skel { pointer-events: none; background: linear-gradient(90deg,#e6ddd1 25%,#f0e8df 50%,#e6ddd1 75%); background-size: 200% 100%; animation: sk .9s ease-in-out infinite; border-radius: 3px; height: 22px; color: transparent; }
+        @keyframes sk { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+        /* ── Sticky Bottom Bar ── */
+        .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 88; background: rgba(20,16,13,.97); border-top: 1px solid var(--line); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 14px; transform: translateY(110%); transition: transform .4s cubic-bezier(.2,.7,.2,1); backdrop-filter: blur(12px); }
+        .sticky-bar.visible { transform: translateY(0); }
+        .sticky-bar-left { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+        .sticky-bar-count { font-size: 10px; color: var(--gold-light); letter-spacing: .12em; white-space: nowrap; }
+        .sticky-bar-names { font-size: 10px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .sticky-proceed { padding: 11px 22px; background: var(--gold); color: #17100a; border: 0; font-family: "Noto Kufi Arabic",sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .1em; cursor: pointer; transition: background .2s; white-space: nowrap; flex-shrink: 0; }
+        .sticky-proceed:hover:not(:disabled) { background: var(--gold-light); }
+        .sticky-proceed:disabled { opacity: .5; cursor: not-allowed; }
+        @media (max-width: 850px) {
+          .best-sellers { padding: 72px 0; }
+          .perfume-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+          .p-card-name { font-size: 9px; }
+          .fl-cols { grid-template-columns: 1fr; gap: 20px; }
+          .full-list-section { padding: 56px 0 72px; }
+          .sel-counter { padding: 12px 18px; gap: 14px; }
+          .sticky-bar { padding: 10px 16px; }
+        }
     </style>
   </head>
   <body>
@@ -580,12 +651,12 @@
             <span>عش تجربة العطر الأصلي</span>
             <span>بركا ما تنفق بزاف ديال المال وانتِ عندك أثير</span>
             <span>🚚 توصيل مجاني على جميع الطلبات</span>
-            <span>القارورة بـ 149 درهم · 4 قارورات بـ 199 درهم</span>
+            <span>باقة 4 قارورات · 199 درهم · توصيل مجاني</span>
             <span>جرب شبيه الاصلي بثمن مناسب</span>
             <span>عش تجربة العطر الأصلي</span>
             <span>بركا ما تنفق بزاف ديال المال وانتِ عندك أثير</span>
             <span>🚚 توصيل مجاني على جميع الطلبات</span>
-            <span>القارورة بـ 149 درهم · 4 قارورات بـ 199 درهم</span>
+            <span>باقة 4 قارورات · 199 درهم · توصيل مجاني</span>
           </div>
         </div>
 
@@ -614,8 +685,7 @@
             <h2 class="product-name" id="perfume-title">ATHEER</h2>
             <div class="product-subtitle">EXTRAIT DE PARFUM · 50 ML</div>
             <div class="price-block">
-              <div class="price-single"><span>القارورة الواحدة بـ</span> 149 <small>درهم</small></div>
-              <div class="price-bundle">عرض خاص: 4 قارورات بـ <b>199 درهم</b> <span class="delivery-tag">شامل التوصيل</span></div>
+              <div class="price-bundle" style="font-size:15px;padding:12px 20px">باقة 4 قارورات — <b>199 درهم</b> <span class="delivery-tag">توصيل مجاني</span></div>
             </div>
             <div class="notes">
               <h3>THE OLFACTIVE PYRAMID · هرم الروائح</h3>
@@ -626,7 +696,7 @@
               </div>
             </div>
             <div class="product-actions">
-              <button class="gold-button" id="product-add-btn" type="button">أضف للسلة <span>+</span></button>
+              <button class="gold-button" id="product-add-btn" type="button">اختر 4 عطور <span>←</span></button>
               <button class="ghost-button" type="button" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">تصفح الكتالوج</button>
             </div>
           </div>
@@ -634,695 +704,93 @@
       </section>
 
 
-        
-      
-        <section class="catalog" id="catalog" aria-labelledby="catalog-title">
-          <div class="container">
-            <div class="catalog-header reveal">
-              <div class="section-label">03 · الكتالوج</div>
-              <h2 class="section-title serif" id="catalog-title">كتالوج<br/><span style="color:var(--gold-light)">العطور</span></h2>
-              <p style="color:var(--muted);font-size:12px;margin:14px 0 6px;max-width:480px;line-height:2.2">
-                73 عطراً نسائية ورجالية ·
-                كل قارورة <strong style="color:var(--gold-light)">149 MAD</strong> ·
-                4 قارورات <strong style="color:var(--gold-light)">199 MAD</strong>
-              </p>
-              <span class="free-delivery-badge">🚚 توصيل مجاني على جميع الطلبات</span>
-              <div class="catalog-tabs">
-                <button class="catalog-tab active" data-tab="femme" type="button">Parfums Femme · نسائية (39)</button>
-                <button class="catalog-tab" data-tab="homme" type="button">Parfums Homme · رجالية (34)</button>
-              </div>
+
+      <!-- ══════ BEST SELLERS ══════ -->
+      <section class="best-sellers" id="catalog" aria-labelledby="bestsellers-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <div>
+              <div class="section-label">03 · الأكثر طلباً</div>
+              <h2 class="section-title serif" id="bestsellers-title">اختر باقتك<br/><span style="color:var(--gold-light)">4 عطور</span></h2>
             </div>
-            <div class="catalog-panel active" id="tab-femme">
-              <div class="catalog-grid reveal">
-                <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - j&#39;adore" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">j'adore</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="j&#39;adore" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Si Passione" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Si Passione</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Si Passione" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Alien" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Alien</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Alien" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Zara Femme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Zara Femme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Zara Femme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Evidance" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Evidance</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Evidance" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - My Way" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">My Way</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="My Way" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Chance Chanel" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Chance Chanel</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Chance Chanel" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - La nuit tresor" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">La nuit tresor</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="La nuit tresor" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Miss Dior Chérie" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Miss Dior Chérie</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Miss Dior Chérie" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Mon Paris" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Mon Paris</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Mon Paris" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Amirat l3arab" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Amirat l3arab</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Amirat l3arab" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - YARA" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">YARA</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="YARA" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - La vie est belle" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">La vie est belle</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="La vie est belle" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - SCANDAL" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">SCANDAL</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="SCANDAL" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Coco Mademoiselle" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Coco Mademoiselle</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Coco Mademoiselle" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Olympea" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Olympea</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Olympea" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Escada Taj" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Escada Taj</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Escada Taj" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Libre" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Libre</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Libre" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - L&#39;Interdit" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">L'Interdit</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="L&#39;Interdit" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Giordani gold" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Giordani gold</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Giordani gold" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Good girl" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Good girl</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Good girl" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Because It&#39;s You" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Because It's You</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Because It&#39;s You" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Light blue" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Light blue</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Light blue" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Burberry Her" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Burberry Her</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Burberry Her" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Gucci Flora" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Gucci Flora</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Gucci Flora" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Kayali perfume" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Kayali perfume</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Kayali perfume" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Dolce&Gabbana The one" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Dolce&Gabbana The one</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Dolce&Gabbana The one" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - LANCOME IDOLE" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">LANCOME IDOLE</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="LANCOME IDOLE" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Baccarat rouge 540" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Baccarat rouge 540</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Baccarat rouge 540" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Goddess" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Goddess</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Goddess" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Éclat Femme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Éclat Femme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Éclat Femme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Amber Elixir" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Amber Elixir</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Amber Elixir" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - قمة" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">قمة</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="قمة" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Girl Of Now" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Girl Of Now</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Girl Of Now" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Paco Rabanne Femme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Paco Rabanne Femme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Paco Rabanne Femme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Cristal Noir" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Cristal Noir</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Cristal Noir" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Black Opium" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Black Opium</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Black Opium" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - يدرع العود" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">يدرع العود</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="يدرع العود" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Hypnotic Poison" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Hypnotic Poison</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Hypnotic Poison" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              </div>
-            </div>
-            <div class="catalog-panel" id="tab-homme">
-              <div class="catalog-grid reveal">
-                <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Sauvage" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Sauvage</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Sauvage" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Bleu de Chanel" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Bleu de Chanel</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Bleu de Chanel" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - One Million" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">One Million</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="One Million" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Invictus" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Invictus</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Invictus" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Eros (Versace)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Eros (Versace)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Eros (Versace)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Lacoste Noir" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Lacoste Noir</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Lacoste Noir" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Black XS" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Black XS</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Black XS" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Hugo Boss" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Hugo Boss</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Hugo Boss" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - La Nuit de l&#39;Homme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">La Nuit de l'Homme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="La Nuit de l&#39;Homme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Dolce & Gabbana" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Dolce & Gabbana</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Dolce & Gabbana" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Chrome (Azzaro)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Chrome (Azzaro)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Chrome (Azzaro)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Diesel Only The Brave" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Diesel Only The Brave</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Diesel Only The Brave" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Gucci Oud" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Gucci Oud</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Gucci Oud" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Armani Code" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Armani Code</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Armani Code" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - 212 VIP Men" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">212 VIP Men</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="212 VIP Men" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Zara Homme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Zara Homme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Zara Homme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Yves Saint Laurent (Y)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Yves Saint Laurent (Y)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Yves Saint Laurent (Y)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Dior Fahrenheit" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Dior Fahrenheit</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Dior Fahrenheit" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Stronger With You Oud" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Stronger With You Oud</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Stronger With You Oud" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Stronger With You Absolutely" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Stronger With You Absolutely</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Stronger With You Absolutely" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Scandal Pour Homme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Scandal Pour Homme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Scandal Pour Homme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Jean Paul Gaultier" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Jean Paul Gaultier</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Jean Paul Gaultier" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Tom Ford Black Orchid" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Tom Ford Black Orchid</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Tom Ford Black Orchid" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Wanted By Night (Azzaro)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Wanted By Night (Azzaro)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Wanted By Night (Azzaro)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - One Million Elixir" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">One Million Elixir</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="One Million Elixir" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Tobacco Vanille (Tom Ford)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Tobacco Vanille (Tom Ford)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Tobacco Vanille (Tom Ford)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Acqua Di Giò (Giorgio Armani)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Acqua Di Giò (Giorgio Armani)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Acqua Di Giò (Giorgio Armani)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Valentino Uomo" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Valentino Uomo</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Valentino Uomo" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Prada L&#39;Homme" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Prada L'Homme</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Prada L&#39;Homme" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Aventus (Creed)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Aventus (Creed)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Aventus (Creed)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Just Cavalli For Men" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Just Cavalli For Men</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Just Cavalli For Men" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Boss Bottled" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Boss Bottled</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Boss Bottled" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - CK One (Calvin Klein)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">CK One (Calvin Klein)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="CK One (Calvin Klein)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              <div class="catalog-card">
-                <img class="catalog-card-img" src="assets/atheer-cutout.png" alt="أثير - Roses Vanille (Mancera)" loading="lazy"/>
-                <div class="catalog-card-info">
-                  <span class="catalog-card-name">Roses Vanille (Mancera)</span>
-                  <div class="catalog-card-price">149 <span>MAD</span></div>
-                  <div class="catalog-card-bundle">أو 4 بـ199 MAD</div>
-                  <button class="catalog-add-btn" data-name="Roses Vanille (Mancera)" type="button">أضف للسلة +</button>
-                </div>
-              </div>
-              </div>
-            </div>
-            <div class="catalog-cta-wrap reveal">
-              <span class="catalog-count">73 عطر متاح · 🚚 توصيل مجاني</span>
-              <button class="gold-button" id="checkout-btn" type="button">إتمام الطلب عبر واتساب <span>←</span></button>
+            <div>
+              <p class="section-intro">باقة 4 قارورات — <strong style="color:var(--gold-light)">199 MAD</strong> · 🚚 توصيل مجاني</p>
+              <p class="section-intro" style="margin-top:6px;font-size:11px">انقر على العطر لإضافته · يجب اختيار 4 بالضبط لإتمام الطلب</p>
             </div>
           </div>
-        </section>
+          <!-- Selection Counter -->
+          <div class="sel-counter-wrap reveal">
+            <div class="sel-counter" id="sel-counter">
+              <div class="sel-counter-left">
+                <div class="sel-counter-label">تم اختيار</div>
+                <div><span class="sel-counter-num" id="sel-count-num">0</span><span class="sel-counter-suffix">من 4 عطور</span></div>
+              </div>
+              <div class="sel-dots">
+                <div class="sel-dot" id="dot-0"></div>
+                <div class="sel-dot" id="dot-1"></div>
+                <div class="sel-dot" id="dot-2"></div>
+                <div class="sel-dot" id="dot-3"></div>
+              </div>
+            </div>
+            <div class="completion-msg" id="completion-msg">✦ &nbsp;اخترت باقتك الكاملة!&nbsp; ✦</div>
+          </div>
+          <!-- Parfum Femme -->
+          <div class="gender-label reveal">Parfum Femme</div>
+          <div class="perfume-grid reveal" id="grid-femme">
+            <div class="p-card" data-name="j'adore"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="j'adore" loading="lazy"/><span class="p-card-name">j&#39;adore</span></div>
+            <div class="p-card" data-name="Coco Mademoiselle"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Coco Mademoiselle" loading="lazy"/><span class="p-card-name">Coco Mademoiselle</span></div>
+            <div class="p-card" data-name="Black Opium"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Black Opium" loading="lazy"/><span class="p-card-name">Black Opium</span></div>
+            <div class="p-card" data-name="La vie est belle"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="La vie est belle" loading="lazy"/><span class="p-card-name">La vie est belle</span></div>
+            <div class="p-card" data-name="Good girl"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Good girl" loading="lazy"/><span class="p-card-name">Good girl</span></div>
+            <div class="p-card" data-name="Alien"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Alien" loading="lazy"/><span class="p-card-name">Alien</span></div>
+            <div class="p-card" data-name="Miss Dior Chérie"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Miss Dior Chérie" loading="lazy"/><span class="p-card-name">Miss Dior Chérie</span></div>
+            <div class="p-card" data-name="Olympea"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Olympea" loading="lazy"/><span class="p-card-name">Olympea</span></div>
+            <div class="p-card" data-name="Baca rouge 540"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Baca rouge 540" loading="lazy"/><span class="p-card-name">Baca rouge 540</span></div>
+            <div class="p-card" data-name="SCANDAL"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="SCANDAL" loading="lazy"/><span class="p-card-name">SCANDAL</span></div>
+          </div>
+          <!-- Parfum Homme -->
+          <div class="gender-label reveal" style="margin-top:52px">Parfum Homme</div>
+          <div class="perfume-grid reveal" id="grid-homme">
+            <div class="p-card" data-name="Sauvage"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Sauvage" loading="lazy"/><span class="p-card-name">Sauvage</span></div>
+            <div class="p-card" data-name="Bleu de Chanel"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Bleu de Chanel" loading="lazy"/><span class="p-card-name">Bleu de Chanel</span></div>
+            <div class="p-card" data-name="One Million"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="One Million" loading="lazy"/><span class="p-card-name">One Million</span></div>
+            <div class="p-card" data-name="Invictus"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Invictus" loading="lazy"/><span class="p-card-name">Invictus</span></div>
+            <div class="p-card" data-name="Aventus – Creed"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Aventus – Creed" loading="lazy"/><span class="p-card-name">Aventus – Creed</span></div>
+            <div class="p-card" data-name="Eros – Versace"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Eros – Versace" loading="lazy"/><span class="p-card-name">Eros – Versace</span></div>
+            <div class="p-card" data-name="Acqua Di Gió – Giorgio Armani"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Acqua Di Gió" loading="lazy"/><span class="p-card-name">Acqua Di Gió – Armani</span></div>
+            <div class="p-card" data-name="Tom Ford Black Orchid"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Tom Ford Black Orchid" loading="lazy"/><span class="p-card-name">Tom Ford Black Orchid</span></div>
+            <div class="p-card" data-name="Boss Bottled"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Boss Bottled" loading="lazy"/><span class="p-card-name">Boss Bottled</span></div>
+            <div class="p-card" data-name="Yves Saint Laurent (Y)"><div class="p-card-check">✓</div><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Yves Saint Laurent (Y)" loading="lazy"/><span class="p-card-name">Yves Saint Laurent (Y)</span></div>
+          </div>
+          <div class="reveal" style="text-align:center;margin-top:44px">
+            <a href="#full-list" class="ghost-button" style="display:inline-flex">القائمة الكاملة (73 عطر) <span>↓</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ FULL LIST ══════ -->
+      <section class="full-list-section" id="full-list">
+        <div class="container">
+          <div class="fl-section-label">04 · القائمة الكاملة</div>
+          <h2 class="fl-title">القائمة الكاملة</h2>
+          <p class="fl-intro">انقر على اسم أي عطر لإضافته مباشرة، أو أدخل أرقاماً في الحقل (افصل بفاصلة). F = نسائي · H = رجالي — مثال: <strong>F1, F14, H3, H19</strong></p>
+          <div class="manual-input-row">
+            <input type="text" id="manual-input" placeholder="مثال: F1, F14, H3, H19" dir="ltr" autocomplete="off"/>
+            <button id="manual-add-btn" type="button">إضافة</button>
+          </div>
+          <div class="fl-cols">
+            <div class="fl-col">
+              <h3>Parfums Femme</h3>
+              <ul class="fl-list" id="fl-femme"></ul>
+            </div>
+            <div class="fl-col">
+              <h3>Parfums Homme</h3>
+              <ul class="fl-list" id="fl-homme"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section class="gallery" id="gallery" aria-labelledby="gallery-title">
         <div class="container">
@@ -1391,63 +859,60 @@
         <div class="footer-bottom"><span>© 2026 ATHEER · ALL RIGHTS RESERVED</span><span>حضور يترك أثراً</span></div>
       </div>
     </footer>
-      <!-- Cart sidebar -->
+      <!-- Selection sidebar -->
       <div class="cart-overlay" id="cart-overlay"></div>
-      <aside class="cart-sidebar" id="cart-sidebar" aria-label="سلة المشتريات">
+      <aside class="cart-sidebar" id="cart-sidebar" aria-label="اختياراتك">
         <div class="cart-head">
-          <h3>سلة المشتريات</h3>
+          <h3>اختياراتك</h3>
           <button class="cart-close" id="cart-close" type="button">✕</button>
         </div>
         <div class="cart-body">
-          <div class="cart-empty-msg" id="cart-empty-msg"><p>السلة فارغة</p><small>أضف عطوراً من الكتالوج</small></div>
+          <div class="cart-empty-msg" id="cart-empty-msg"><p>لم تختر بعد</p><small>انقر على العطور أعلاه لإضافتها</small></div>
           <ul class="cart-list" id="cart-list" style="display:none"></ul>
         </div>
         <div class="cart-foot" id="cart-foot" style="display:none">
           <div class="cart-note" id="cart-note"></div>
-          <div class="cart-total-row"><span>الإجمالي</span><strong id="cart-total"></strong></div>
+          <div class="cart-total-row"><span>باقة 4 قارورات</span><strong id="cart-total">199 MAD</strong></div>
           <div class="cart-del-row"><span>🚚 التوصيل</span><strong style="color:var(--gold-light)">مجاني دائماً</strong></div>
-          <a class="gold-button cart-wa-btn" id="cart-wa-btn" href="#" target="_blank" rel="noopener">إتمام الطلب عبر واتساب <span>←</span></a>
+          <button class="gold-button cart-wa-btn" id="cart-wa-btn" style="width:100%;justify-content:center" type="button">إتمام الطلب <span>←</span></button>
         </div>
       </aside>
-      <!-- Floating cart button -->
-      <button class="cart-float-btn" id="cart-float-btn" type="button" aria-label="سلة المشتريات">
+      <!-- Floating selection button -->
+      <button class="cart-float-btn" id="cart-float-btn" type="button" aria-label="اختياراتك">
         🛒<span class="cart-badge" id="cart-badge" style="display:none">0</span>
       </button>
-    <!-- Order Form Modal -->
+    <!-- Sticky bottom bar -->
+    <div class="sticky-bar" id="sticky-bar">
+      <div class="sticky-bar-left">
+        <span class="sticky-bar-count">تم اختيار <strong id="sticky-count-num">0</strong> من 4 عطور</span>
+        <span class="sticky-bar-names" id="sticky-names"></span>
+      </div>
+      <button class="sticky-proceed" id="sticky-proceed" type="button" disabled>اختر عطوراً أولاً</button>
+    </div>
+
+    <!-- Order Confirmation Modal -->
     <div class="order-overlay" id="order-overlay">
       <div class="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
         <div class="order-modal-head">
           <div>
-            <h3 id="order-modal-title">إتمام الطلب</h3>
-            <small>أدخل بياناتك وسيُرسل الطلب عبر واتساب مباشرةً</small>
+            <h3 id="order-modal-title">تأكيد الطلب</h3>
+            <small>باقة 4 قارورات — 199 MAD · توصيل مجاني</small>
           </div>
           <button class="order-modal-close" id="order-modal-close" type="button" aria-label="إغلاق">✕</button>
         </div>
         <div class="order-modal-body">
           <div class="order-modal-summary" id="order-modal-summary"></div>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="order-name">الاسم الكامل <span class="order-required">*</span></label>
-              <input type="text" id="order-name" name="name" placeholder="محمد بلعربي" autocomplete="name" required />
-            </div>
-            <div class="form-field">
-              <label for="order-phone">رقم الهاتف <span class="order-required">*</span></label>
-              <input type="tel" id="order-phone" name="phone" placeholder="0661xxxxxx" autocomplete="tel" required />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="order-city">المدينة <span class="order-required">*</span></label>
-              <input type="text" id="order-city" name="city" placeholder="الدار البيضاء" autocomplete="address-level2" required />
-            </div>
-            <div class="form-field">
-              <label for="order-address">العنوان <span class="order-required">*</span></label>
-              <input type="text" id="order-address" name="address" placeholder="الحي، الشارع، رقم المنزل" autocomplete="street-address" required />
-            </div>
+          <div class="form-field">
+            <label for="order-name">الاسم الكامل <span class="order-required">*</span></label>
+            <input type="text" id="order-name" placeholder="محمد بلعربي" autocomplete="name" required />
           </div>
           <div class="form-field">
-            <label for="order-note">ملاحظة إضافية (اختياري)</label>
-            <textarea id="order-note" name="note" placeholder="أي تعليمات خاصة للتوصيل أو ملاحظات أخرى..."></textarea>
+            <label for="order-phone">رقم الهاتف <span class="order-required">*</span></label>
+            <input type="tel" id="order-phone" placeholder="0661852411" autocomplete="tel" required />
+          </div>
+          <div class="form-field">
+            <label for="order-address">العنوان الكامل <span class="order-required">*</span></label>
+            <input type="text" id="order-address" placeholder="المدينة، الحي، الشارع، رقم المنزل" autocomplete="street-address" required />
           </div>
           <button class="order-submit-btn" id="order-submit-btn" type="button">
             إرسال الطلب عبر واتساب <span>←</span>
@@ -1460,16 +925,11 @@
 
     
       <script>
-        // ── UI setup ──
+        // ── UI ──
         const header     = document.getElementById("site-header");
         const nav        = document.getElementById("site-nav");
         const menuToggle = document.querySelector(".menu-toggle");
         const toast      = document.getElementById("toast");
-
-        // Keep the long catalog light: swap its lazy images to the compressed WebP assets
-        document.querySelectorAll(".catalog-card-img").forEach(img => {
-          img.src = img.getAttribute("src").replace("atheer-cutout.png", "webp/atheer-cutout.webp");
-        });
 
         window.addEventListener("scroll", () => {
           header.classList.toggle("scrolled", window.scrollY > 40);
@@ -1490,54 +950,13 @@
           });
         });
 
-        // ── Reveal on scroll ──
+        // ── Reveal ──
         const revealObs = new IntersectionObserver(entries => {
           entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-        }, { threshold: 0.12 });
+        }, { threshold: 0.09 });
         document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
 
-        // ── Data-toast buttons ──
-        document.querySelectorAll("[data-toast]").forEach(btn => {
-          btn.addEventListener("click", () => showToast(btn.dataset.toast));
-        });
-
-        // ════════════════════════════════════════════
-        // CART SYSTEM
-        // ════════════════════════════════════════════
-        const PRICE_SINGLE  = 149;
-        const PRICE_BUNDLE  = 199;
-        const WA_NUMBER     = "212661852411";
-
-        let cart = JSON.parse(localStorage.getItem("atheer_cart") || "[]");
-
-        function saveCart()  { localStorage.setItem("atheer_cart", JSON.stringify(cart)); }
-        function cartTotal() {
-          const bundles = Math.floor(cart.length / 4);
-          const singles = cart.length % 4;
-          return bundles * PRICE_BUNDLE + singles * PRICE_SINGLE;
-        }
-        function buildWAMessage(info) {
-          const lines = cart.map((n,i) => "   " + (i+1) + ". " + n).join("\n");
-          const bundles = Math.floor(cart.length / 4);
-          const priceNote = bundles > 0
-            ? "عرض الباقة: " + bundles + "×4 بـ " + PRICE_BUNDLE + " MAD"
-            : cart.length + " قارورة × " + PRICE_SINGLE + " MAD";
-          let msg = "🌟 *طلب جديد من أثير* 🌟\n";
-          msg += "━━━━━━━━━━━━━━━━━━━━\n\n";
-          msg += "📋 *معلومات الزبون:*\n";
-          msg += "👤 الاسم: " + info.name + "\n";
-          msg += "📞 الهاتف: " + info.phone + "\n";
-          msg += "🏙️ المدينة: " + info.city + "\n";
-          msg += "🏠 العنوان: " + info.address + "\n";
-          if (info.note.trim()) msg += "📝 ملاحظة: " + info.note.trim() + "\n";
-          msg += "\n🛍️ *العطور المطلوبة:*\n";
-          msg += lines + "\n\n";
-          msg += "💰 *الإجمالي: " + cartTotal() + " MAD*\n";
-          msg += "   (" + priceNote + ")\n";
-          msg += "🚚 التوصيل: مجاني ✓\n\n";
-          msg += "شكراً لاختياركم أثير ✨";
-          return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
-        }
+        // ── Toast ──
         function showToast(msg) {
           toast.textContent = msg;
           toast.classList.add("show");
@@ -1545,50 +964,200 @@
           window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
         }
 
-        function renderCart() {
-          const count    = cart.length;
-          const badge    = document.getElementById("cart-badge");
+        // ════════════════════════════════════════════
+        //  SELECTION — exactly 4 perfumes
+        // ════════════════════════════════════════════
+        const WA_NUMBER = "212661852411";
+        let selection = [];
+
+        function saveSelection() {
+          try { sessionStorage.setItem("atheer_sel", JSON.stringify(selection)); } catch(e) {}
+        }
+
+        function addToSelection(name) {
+          if (selection.includes(name)) { removeFromSelection(name); return; }
+          if (selection.length >= 4) { showToast("لقد اخترت 4 عطور — انقر على عطر مختار لإزالته"); return; }
+          selection.push(name);
+          saveSelection(); renderSelection();
+          if (selection.length === 4) triggerCompletion();
+        }
+
+        function removeFromSelection(name) {
+          selection = selection.filter(n => n !== name);
+          saveSelection(); renderSelection();
+        }
+
+        function triggerCompletion() {
+          const ctr = document.getElementById("sel-counter");
+          if (ctr) { ctr.classList.add("complete"); setTimeout(() => ctr.classList.remove("complete"), 1400); }
+          const msg = document.getElementById("completion-msg");
+          if (msg) msg.classList.add("show");
+          setTimeout(() => showToast("✦ اخترت باقتك الكاملة! اضغط «إتمام الطلب»"), 300);
+        }
+
+        function renderSelection() {
+          const count = selection.length;
+          // Counter num + bump
+          const numEl = document.getElementById("sel-count-num");
+          if (numEl) {
+            numEl.textContent = count;
+            numEl.classList.remove("bump"); void numEl.offsetWidth; numEl.classList.add("bump");
+          }
+          // Dots
+          for (let i = 0; i < 4; i++) {
+            const d = document.getElementById("dot-" + i);
+            if (d) d.classList.toggle("filled", i < count);
+          }
+          // Completion msg
+          const msg = document.getElementById("completion-msg");
+          if (msg) { if (count === 4) msg.classList.add("show"); else msg.classList.remove("show"); }
+          // P-cards
+          const maxed = count >= 4;
+          document.querySelectorAll(".p-card").forEach(card => {
+            const sel = selection.includes(card.dataset.name);
+            card.classList.toggle("selected", sel);
+            card.classList.toggle("maxed", maxed && !sel);
+          });
+          // Sticky bar
+          const bar   = document.getElementById("sticky-bar");
+          const cntEl = document.getElementById("sticky-count-num");
+          const nmEl  = document.getElementById("sticky-names");
+          const btnEl = document.getElementById("sticky-proceed");
+          if (bar)  bar.classList.toggle("visible", count > 0);
+          if (cntEl) cntEl.textContent = count;
+          if (nmEl)  nmEl.textContent  = selection.join(" · ");
+          if (btnEl) {
+            btnEl.disabled    = count !== 4;
+            btnEl.textContent = count === 4 ? "إتمام الطلب ←" : "اختر " + (4-count) + " عطور أخرى";
+          }
+          // Cart badge
+          const badge = document.getElementById("cart-badge");
+          if (badge) { badge.textContent = count; badge.style.display = count > 0 ? "flex" : "none"; }
+          renderSelectionSidebar();
+        }
+
+        function renderSelectionSidebar() {
+          const count    = selection.length;
           const emptyMsg = document.getElementById("cart-empty-msg");
           const list     = document.getElementById("cart-list");
           const foot     = document.getElementById("cart-foot");
           const note     = document.getElementById("cart-note");
-          const totalEl  = document.getElementById("cart-total");
-
-          badge.textContent  = count;
-          badge.style.display = count > 0 ? "flex" : "none";
-
+          if (!emptyMsg) return;
           if (count === 0) {
             emptyMsg.style.display = "block";
-            list.style.display     = "none";
-            foot.style.display     = "none";
+            if (list) list.style.display = "none";
+            if (foot) foot.style.display = "none";
           } else {
             emptyMsg.style.display = "none";
-            list.style.display     = "block";
-            foot.style.display     = "flex";
-
-            list.innerHTML = cart.map((name, i) =>
-              '<li class="cart-row">' +
-                '<span class="cart-row-name">' + name + '</span>' +
-                '<button class="cart-row-del" data-idx="' + i + '" type="button" aria-label="إزالة">✕</button>' +
-              '</li>'
-            ).join('');
-
-            const bundles = Math.floor(count / 4);
-            note.textContent = bundles > 0
-              ? "✦ سعر الباقة مطبّق: " + bundles + "×4 = " + PRICE_BUNDLE + " MAD"
-              : "أضف " + (4 - count) + " عطر إضافي للحصول على سعر الباقة (199 MAD)";
-
-            totalEl.textContent = cartTotal() + " MAD";
-
-            list.querySelectorAll(".cart-row-del").forEach(btn => {
-              btn.addEventListener("click", () => {
-                cart.splice(Number(btn.dataset.idx), 1);
-                saveCart(); renderCart();
+            if (list) {
+              list.style.display = "block";
+              list.innerHTML = selection.map(name =>
+                '<li class="cart-row"><span class="cart-row-name">' + name + '</span>' +
+                '<button class="cart-row-del" data-name="' + name.replace(/"/g,'&quot;') + '" type="button" aria-label="إزالة">✕</button></li>'
+              ).join('');
+              list.querySelectorAll(".cart-row-del").forEach(btn => {
+                btn.addEventListener("click", () => removeFromSelection(btn.dataset.name));
               });
-            });
+            }
+            if (foot) foot.style.display = "flex";
+            if (note) note.textContent = count < 4
+              ? "⚠ يجب اختيار " + (4-count) + " عطر إضافي (4 بالضبط)"
+              : "✦ باقتك جاهزة — 199 MAD";
           }
         }
 
+        // ── Full list data (exact as provided, intentional duplicates preserved) ──
+        const FEMME_FULL = [
+          ["1","j'adore"],["2","Si Passione"],["3","Alien"],["4","Zara Femme"],
+          ["5","Evidance"],["6","My Way"],["7","Chance Chanel"],["8","La nuit tresor"],
+          ["9","Miss Dior Chérie"],["10","Mon Paris"],["11","Amirat l3arab"],["12","YARA"],
+          ["13","La vie est belle"],["14","SCANDAL"],["15","Coco Mademoiselle"],
+          ["16","Olympea"],["17","Escada Taj"],["18","Libre"],["19","L'Interdit"],
+          ["20","Giordani gold"],["21","Good girl"],["22","Because It's You"],
+          ["23","Light blue"],["24","Burberry Her"],["25","Gucci Flora"],
+          ["26","Kayali perfume"],["27","Dolce&Gabbana The one"],["28","LANCOME IDOLE"],
+          ["29","Baca rouge 540"],["30","Baca rouge 540"],["31","Goddess"],
+          ["32","Éclat Femme"],["33","Amber Elixir"],["34","قمة"],["35","Girl Of Now"],
+          ["36","Paco Rabanne Femme"],["31","Goddess"],["32","Éclat Femme"],
+          ["33","Amber Elixir"],["34","Olympea"],["37","Cristal Noir"],
+          ["38","Black Opium"],["39","يدرع العود"],["40","Hypnotic Poison"]
+        ];
+        const HOMME_FULL = [
+          ["1","Sauvage"],["2","Bleu de Chanel"],["3","One Million"],["4","Invictus"],
+          ["5","Eros – Versace"],["6","Lacoste Noir"],["7","Black XS"],["8","Hugo Boss"],
+          ["9","La Nuit de l'Homme"],["10","Dolce & Gabbana"],["11","Chrome – Azzaro"],
+          ["12","Diesel Only The Brave"],["15","Gucci Oud"],["16","Armani Code"],
+          ["17","212 VIP Men"],["18","Zara Homme"],["19","Yves Saint Laurent (Y)"],
+          ["20","Dior Fahrenheit"],["21","Stronger With You Oud"],
+          ["22","Stronger With You Absolutely"],["23","Scandal Pour Homme"],
+          ["24","Jean Paul Gaultier"],["25","Tom Ford Black Orchid"],
+          ["26","Wanted By Night – Azzaro"],["27","One Million Elixir"],
+          ["28","Tobacco Vanille – Tom Ford"],["29","Acqua Di Gió – Giorgio Armani"],
+          ["30","Valentino Uomo"],["31","Prada L'Homme"],["32","Aventus – Creed"],
+          ["33","Just Cavaili For Men"],["34","Boss Bottled"],
+          ["35","CK One – Calvin Klein"],["36","Roses Vanille – Mancera"],
+          ["27","One Million Elixir"],["28","Tobacco Vanille – Tom Ford"],
+          ["29","Acqua Di Gió – Giorgio Armani"],["30","Valentino Uomo"],
+          ["31","Prada L'Homme"],["32","Aventus – Creed"],["33","Just Cavaili For Men"],
+          ["34","Boss Bottled"],["35","CK One – Calvin Klein"],["36","Roses Vanille – Mancera"]
+        ];
+
+        const lookupF = {}, lookupH = {};
+        FEMME_FULL.forEach(([n,name]) => { if (!lookupF[n]) lookupF[n] = name; });
+        HOMME_FULL.forEach(([n,name]) => { if (!lookupH[n]) lookupH[n] = name; });
+
+        function esc(s) { return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+        function renderFullList() {
+          const flF = document.getElementById("fl-femme");
+          const flH = document.getElementById("fl-homme");
+          if (!flF || !flH) return;
+          const make = ([num, name]) =>
+            '<li class="fl-item" data-name="' + esc(name) + '"><span class="fl-num">' + num + '</span><span class="fl-name">' + name + '</span></li>';
+          flF.innerHTML = FEMME_FULL.map(make).join('');
+          flH.innerHTML = HOMME_FULL.map(make).join('');
+          document.querySelectorAll("#fl-femme .fl-item, #fl-homme .fl-item").forEach(item => {
+            item.addEventListener("click", () => addToSelection(item.dataset.name));
+          });
+        }
+
+        function initFullList() {
+          const sk = Array(8).fill('<li class="fl-item fl-skel">&nbsp;</li>').join('');
+          const f  = document.getElementById("fl-femme");
+          const h  = document.getElementById("fl-homme");
+          if (f) f.innerHTML = sk;
+          if (h) h.innerHTML = sk;
+          setTimeout(renderFullList, 380);
+        }
+
+        // ── Manual number input ──
+        function handleManualInput() {
+          const input = document.getElementById("manual-input");
+          if (!input) return;
+          const val = input.value.trim();
+          if (!val) return;
+          const parts = val.split(/[,،s]+/).map(s => s.trim()).filter(Boolean);
+          let added = 0;
+          parts.forEach(part => {
+            if (selection.length >= 4) return;
+            const up = part.toUpperCase();
+            let name = null;
+            if (up.startsWith("F"))      name = lookupF[up.slice(1)] || null;
+            else if (up.startsWith("H")) name = lookupH[up.slice(1)] || null;
+            else                         name = lookupF[part] || lookupH[part] || null;
+            if (name && !selection.includes(name)) { selection.push(name); added++; }
+          });
+          if (added > 0) {
+            saveSelection(); renderSelection();
+            input.value = "";
+            showToast("✓ أُضيف " + added + " عطر");
+            if (selection.length === 4) triggerCompletion();
+          } else {
+            showToast("لم يُعثر على الأرقام — جرب: F1, H3");
+          }
+        }
+
+        // ── Sidebar ──
         function openCart()  {
           document.getElementById("cart-sidebar").classList.add("open");
           document.getElementById("cart-overlay").classList.add("open");
@@ -1600,135 +1169,109 @@
           document.body.classList.remove("menu-open");
         }
 
-        // ── Product section "أضف للسلة" button ──
-        const productAddBtn = document.getElementById("product-add-btn");
-        if (productAddBtn) {
-          productAddBtn.addEventListener("click", () => {
-            const name = "أثير | EXTRAIT DE PARFUM · 50 ML";
-            cart.push(name);
-            saveCart(); renderCart();
-            productAddBtn.textContent = "✓ أُضيف للسلة";
-            setTimeout(() => { productAddBtn.innerHTML = "أضف للسلة <span>+</span>"; }, 1800);
-            showToast("✓ أُضيف أثير إلى السلة");
-            setTimeout(() => openCart(), 500);
-          });
-        }
-
         document.getElementById("cart-float-btn").addEventListener("click", openCart);
         document.getElementById("cart-close").addEventListener("click", closeCart);
         document.getElementById("cart-overlay").addEventListener("click", closeCart);
 
-        // ── Cart sidebar "إتمام الطلب" button → open order form ──
-        const cartWaBtn = document.getElementById("cart-wa-btn");
-        if (cartWaBtn) {
-          cartWaBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (cart.length === 0) { showToast("السلة فارغة — أضف عطوراً أولاً"); return; }
-            closeCart();
+        document.getElementById("cart-wa-btn").addEventListener("click", () => {
+          if (selection.length !== 4) { showToast("يرجى اختيار 4 عطور بالضبط"); return; }
+          closeCart(); openOrderModal();
+        });
+
+        document.querySelectorAll(".p-card").forEach(card => {
+          card.addEventListener("click", () => addToSelection(card.dataset.name));
+        });
+
+        const manualBtn = document.getElementById("manual-add-btn");
+        const manualInp = document.getElementById("manual-input");
+        if (manualBtn) manualBtn.addEventListener("click", handleManualInput);
+        if (manualInp) manualInp.addEventListener("keypress", e => { if (e.key === "Enter") handleManualInput(); });
+
+        const stickyBtn = document.getElementById("sticky-proceed");
+        if (stickyBtn) {
+          stickyBtn.addEventListener("click", () => {
+            if (selection.length !== 4) { showToast("يرجى اختيار 4 عطور بالضبط"); return; }
             openOrderModal();
           });
         }
 
-        // Add-to-cart from catalog
-        document.querySelectorAll(".catalog-add-btn").forEach(btn => {
-          btn.addEventListener("click", () => {
-            cart.push(btn.dataset.name);
-            saveCart(); renderCart();
-            const orig = btn.textContent;
-            btn.textContent = "✓ أُضيف";
-            btn.classList.add("added");
-            setTimeout(() => { btn.textContent = orig; btn.classList.remove("added"); }, 1600);
-            showToast("✓ أُضيف: " + btn.dataset.name);
-          });
-        });
-
-        // Checkout button in catalog → open order form
-        const checkoutBtn = document.getElementById("checkout-btn");
-        if (checkoutBtn) {
-          checkoutBtn.addEventListener("click", () => {
-            if (cart.length === 0) { showToast("السلة فارغة — أضف عطوراً أولاً"); return; }
-            openOrderModal();
+        const productBtn = document.getElementById("product-add-btn");
+        if (productBtn) {
+          productBtn.addEventListener("click", () => {
+            document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
           });
         }
 
-        // Catalog tabs
-        document.querySelectorAll(".catalog-tab").forEach(btn => {
-          btn.addEventListener("click", () => {
-            document.querySelectorAll(".catalog-tab").forEach(b => b.classList.remove("active"));
-            document.querySelectorAll(".catalog-panel").forEach(p => p.classList.remove("active"));
-            btn.classList.add("active");
-            const panel = document.getElementById("tab-" + btn.dataset.tab);
-            if (panel) panel.classList.add("active");
-          });
-        });
+        // ════════════════════════════════════════════
+        //  ORDER MODAL
+        // ════════════════════════════════════════════
+        function generateOrderId() {
+          return "#ATH-" + Math.floor(1000 + Math.random() * 9000);
+        }
 
-        // ════════════════════════════════════════════
-        // ORDER FORM MODAL
-        // ════════════════════════════════════════════
+        function buildWAMessage(info) {
+          const id = generateOrderId();
+          return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(
+            "طلب جديد من موقع أثير " + id + "\n" +
+            "العطور المختارة: " + selection.join(", ") + "\n" +
+            "السعر: 199 درهم (توصيل مجاني)\n" +
+            "الاسم: " + info.name + "\n" +
+            "الهاتف: " + info.phone + "\n" +
+            "العنوان: " + info.address
+          );
+        }
+
         function openOrderModal() {
+          if (selection.length !== 4) { showToast("يرجى اختيار 4 عطور بالضبط لإتمام الطلب"); return; }
           const summary = document.getElementById("order-modal-summary");
-          const count   = cart.length;
-          const bundles = Math.floor(count / 4);
-          const singles = count % 4;
-          let lines = cart.map((n,i) => "<span style='color:var(--cream)'>" + (i+1) + ". " + n + "</span>").join("<br>");
-          let priceNote = bundles > 0
-            ? "عرض الباقة: " + bundles + "×4 بـ " + PRICE_BUNDLE + " MAD"
-            : singles + " قارورة × " + PRICE_SINGLE + " MAD";
-          summary.innerHTML = "<strong>🛍️ ملخص طلبك (" + count + " عطر)</strong>"
-            + lines
-            + "<br><br>💰 <strong style='color:var(--gold-light)'>الإجمالي: " + cartTotal() + " MAD</strong>"
-            + " — " + priceNote
-            + "<br>🚚 التوصيل مجاني ✓";
-          // clear form
-          ["order-name","order-phone","order-city","order-address","order-note"].forEach(id => {
-            document.getElementById(id).value = "";
+          if (summary) {
+            const lines = selection.map((n,i) =>
+              '<span style="color:var(--cream)">' + (i+1) + '. ' + n + '</span>'
+            ).join('<br>');
+            summary.innerHTML = '<strong>🛍️ باقتك المختارة (4 عطور)</strong>' + lines +
+              '<br><br>💰 <strong style="color:var(--gold-light)">199 MAD</strong> — 🚚 توصيل مجاني';
+          }
+          ["order-name","order-phone","order-address"].forEach(id => {
+            const el = document.getElementById(id); if (el) el.value = "";
           });
           document.getElementById("order-overlay").classList.add("open");
           document.body.classList.add("menu-open");
         }
+
         function closeOrderModal() {
           document.getElementById("order-overlay").classList.remove("open");
           document.body.classList.remove("menu-open");
         }
 
         document.getElementById("order-modal-close").addEventListener("click", closeOrderModal);
-        document.getElementById("order-overlay").addEventListener("click", (e) => {
+        document.getElementById("order-overlay").addEventListener("click", e => {
           if (e.target === document.getElementById("order-overlay")) closeOrderModal();
         });
 
         document.getElementById("order-submit-btn").addEventListener("click", () => {
           const name    = document.getElementById("order-name").value.trim();
           const phone   = document.getElementById("order-phone").value.trim();
-          const city    = document.getElementById("order-city").value.trim();
           const address = document.getElementById("order-address").value.trim();
-          const note    = document.getElementById("order-note").value;
-
-          if (!name)    { document.getElementById("order-name").focus();    showToast("يرجى إدخال الاسم الكامل"); return; }
-          if (!phone)   { document.getElementById("order-phone").focus();   showToast("يرجى إدخال رقم الهاتف");   return; }
-          if (!city)    { document.getElementById("order-city").focus();    showToast("يرجى إدخال المدينة");       return; }
-          if (!address) { document.getElementById("order-address").focus(); showToast("يرجى إدخال العنوان");       return; }
+          if (!name)    { document.getElementById("order-name").focus();    showToast("يرجى إدخال الاسم الكامل");    return; }
+          if (!phone)   { document.getElementById("order-phone").focus();   showToast("يرجى إدخال رقم الهاتف");      return; }
+          if (!address) { document.getElementById("order-address").focus(); showToast("يرجى إدخال العنوان الكامل"); return; }
 
           const btn = document.getElementById("order-submit-btn");
-          btn.disabled = true;
-          btn.textContent = "جاري الإرسال...";
-
-          const link = buildWAMessage({ name, phone, city, address, note });
-          window.open(link, "_blank", "noopener");
-
-          // clear cart after order
+          btn.disabled = true; btn.textContent = "جاري الإرسال...";
+          window.open(buildWAMessage({ name, phone, address }), "_blank", "noopener");
           setTimeout(() => {
-            cart = [];
-            saveCart(); renderCart();
-            closeOrderModal();
-            showToast("✓ تم إرسال طلبك بنجاح — شكراً لك!");
+            selection = []; saveSelection(); renderSelection();
+            closeOrderModal(); showToast("✓ تم إرسال طلبك — شكراً لك!");
             btn.disabled = false;
             btn.innerHTML = "إرسال الطلب عبر واتساب <span>←</span>";
           }, 800);
         });
 
-        // Init
-        renderCart();
+        // ── Init ──
+        renderSelection();
+        initFullList();
       </script>
+
   
   </body>
 </html>
