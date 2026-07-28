@@ -390,6 +390,66 @@
       @media (prefers-reduced-motion:reduce) {
         *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
       }
+
+      /* ── Marquee mobile speed fix ── */
+      @media (max-width:850px) {
+        .cta-strip-track { gap:28px; animation-duration:38s; }
+        .cta-strip { padding:20px 0; }
+      }
+      /* ── Price comparison ── */
+      .price-compare { display:flex; align-items:center; gap:18px; margin-top:22px; flex-wrap:wrap; }
+      .pc-item { display:flex; flex-direction:column; gap:4px; padding:14px 22px; border:1px solid rgba(140,105,49,.3); background:rgba(183,147,83,.07); text-align:center; }
+      .pc-item.pc-ours { border-color:rgba(140,105,49,.7); background:rgba(183,147,83,.15); }
+      .pc-label { font-size:9px; letter-spacing:.18em; color:#8c6931; text-transform:uppercase; }
+      .pc-original .pc-price { font-size:22px; font-family:"Cormorant Garamond",serif; color:#aaa; text-decoration:line-through; }
+      .pc-ours .pc-price { font-size:26px; font-family:"Cormorant Garamond",serif; font-weight:600; color:#7a5c1e; }
+      .pc-vs { font-family:"Cormorant Garamond",serif; font-size:22px; color:rgba(140,105,49,.5); font-style:italic; }
+      .pc-save { font-size:9px; letter-spacing:.12em; color:#fff; background:#7a5c1e; padding:3px 8px; margin-top:4px; display:inline-block; }
+
+      /* ── Perfume card badge ── */
+      .p-card-badge { position:absolute; top:0; left:0; background:var(--gold); color:#17100a; font-size:7px; font-weight:700; letter-spacing:.12em; padding:3px 7px; z-index:2; }
+
+      /* ── Colored card tints by gender prefix ── */
+      .p-card[data-num^="F"] { background:linear-gradient(160deg,#1e1510,#251610); }
+      .p-card[data-num^="H"] { background:linear-gradient(160deg,#101520,#101825); }
+      .p-card[data-num^="F"].selected { background:rgba(183,120,83,.18); }
+      .p-card[data-num^="H"].selected { background:rgba(83,120,183,.15); }
+
+      /* ── Testimonials ── */
+      .testimonials { padding:100px 0; background:var(--ink-soft); border-top:1px solid var(--line); }
+      .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+      .testi-card { padding:28px 24px; border:1px solid var(--line); background:rgba(255,255,255,.025); display:flex; flex-direction:column; gap:14px; }
+      .testi-stars { color:var(--gold-light); font-size:13px; letter-spacing:3px; }
+      .testi-text { color:var(--muted); font-size:11px; line-height:2.2; flex:1; font-style:italic; }
+      .testi-author { display:flex; flex-direction:column; gap:3px; padding-top:12px; border-top:1px solid var(--line); }
+      .testi-name { color:var(--cream); font-size:11px; font-weight:500; }
+      .testi-city { color:var(--gold-light); font-size:9px; letter-spacing:.14em; }
+
+      /* ── FAQ ── */
+      .faq { padding:100px 0; background:var(--ink); border-top:1px solid var(--line); }
+      .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:48px; }
+      .faq-item { padding:22px 24px; border:1px solid var(--line); background:rgba(255,255,255,.018); cursor:pointer; transition:border-color .25s,background .25s; }
+      .faq-item:hover { border-color:rgba(224,193,127,.35); background:rgba(255,255,255,.03); }
+      .faq-q { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+      .faq-q strong { color:var(--cream); font-size:12px; font-weight:500; line-height:1.7; flex:1; }
+      .faq-icon { color:var(--gold-light); font-size:16px; flex-shrink:0; transition:transform .3s; font-family:"Cormorant Garamond",serif; }
+      .faq-item.open .faq-icon { transform:rotate(45deg); }
+      .faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+      .faq-item.open .faq-a { max-height:200px; }
+      .faq-a p { margin:12px 0 0; color:var(--muted); font-size:10px; line-height:2.2; }
+
+      /* ── WhatsApp CTA ── */
+      .wa-float { position:fixed; bottom:28px; right:22px; z-index:89; width:52px; height:52px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(37,211,102,.4); transition:transform .25s,box-shadow .25s; font-size:24px; text-decoration:none; color:#fff; }
+      .wa-float:hover { transform:scale(1.12); box-shadow:0 10px 32px rgba(37,211,102,.55); }
+
+      /* ── Responsive new sections ── */
+      @media (max-width:850px) {
+        .testi-grid { grid-template-columns:1fr; }
+        .faq-grid { grid-template-columns:1fr; }
+        .price-compare { gap:10px; }
+        .pc-item { padding:11px 16px; }
+        .wa-float { bottom:72px; right:14px; width:46px; height:46px; font-size:20px; }
+      }
     </style>
   </head>
   <body>
@@ -456,6 +516,18 @@
             <h2 class="product-name" id="perfume-title">ATHEER</h2>
             <div class="product-subtitle">EXTRAIT DE PARFUM · 50 ML</div>
             <div class="price-bundle">باقة 4 قارورات — <b>199 درهم</b> <span class="delivery-tag">توصيل مجاني</span></div>
+            <div class="price-compare">
+              <div class="pc-item pc-original">
+                <div class="pc-label">العطر الأصلي</div>
+                <div class="pc-price">800+ درهم</div>
+              </div>
+              <div class="pc-vs">VS</div>
+              <div class="pc-item pc-ours">
+                <div class="pc-label">أثير</div>
+                <div class="pc-price">199 درهم</div>
+                <span class="pc-save">وفّر أكثر من 600 درهم</span>
+              </div>
+            </div>
             <div class="notes">
               <h3>THE OLFACTIVE PYRAMID · هرم الروائح</h3>
               <div class="note-grid">
@@ -515,9 +587,9 @@
           <div class="gender-section active" id="section-femme" role="tabpanel">
             <div class="gender-section-title">Parfum Femme · عطور نسائية</div>
             <div class="perfume-grid reveal" id="grid-femme">
-              <div class="p-card" data-name="j'adore" data-num="F1"><div class="p-card-check">✓</div><span class="p-card-num">F1</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="j'adore" loading="lazy"/><span class="p-card-name">j'adore</span></div>
-              <div class="p-card" data-name="Coco Mademoiselle" data-num="F15"><div class="p-card-check">✓</div><span class="p-card-num">F15</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Coco Mademoiselle" loading="lazy"/><span class="p-card-name">Coco Mademoiselle</span></div>
-              <div class="p-card" data-name="Black Opium" data-num="F37"><div class="p-card-check">✓</div><span class="p-card-num">F37</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Black Opium" loading="lazy"/><span class="p-card-name">Black Opium</span></div>
+              <div class="p-card" data-name="j'adore" data-num="F1"><span class="p-card-badge">الأكثر طلباً</span><div class="p-card-check">✓</div><span class="p-card-num">F1</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="j'adore" loading="lazy"/><span class="p-card-name">j'adore</span></div>
+              <div class="p-card" data-name="Coco Mademoiselle" data-num="F15"><span class="p-card-badge">الأكثر طلباً</span><div class="p-card-check">✓</div><span class="p-card-num">F15</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Coco Mademoiselle" loading="lazy"/><span class="p-card-name">Coco Mademoiselle</span></div>
+              <div class="p-card" data-name="Black Opium" data-num="F37"><span class="p-card-badge">مميز</span><div class="p-card-check">✓</div><span class="p-card-num">F37</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Black Opium" loading="lazy"/><span class="p-card-name">Black Opium</span></div>
               <div class="p-card" data-name="La vie est belle" data-num="F13"><div class="p-card-check">✓</div><span class="p-card-num">F13</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="La vie est belle" loading="lazy"/><span class="p-card-name">La vie est belle</span></div>
               <div class="p-card" data-name="Good girl" data-num="F21"><div class="p-card-check">✓</div><span class="p-card-num">F21</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Good girl" loading="lazy"/><span class="p-card-name">Good girl</span></div>
               <div class="p-card" data-name="Alien" data-num="F3"><div class="p-card-check">✓</div><span class="p-card-num">F3</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Alien" loading="lazy"/><span class="p-card-name">Alien</span></div>
@@ -532,9 +604,9 @@
           <div class="gender-section" id="section-homme" role="tabpanel">
             <div class="gender-section-title">Parfum Homme · عطور رجالية</div>
             <div class="perfume-grid reveal" id="grid-homme">
-              <div class="p-card" data-name="Sauvage" data-num="H1"><div class="p-card-check">✓</div><span class="p-card-num">H1</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Sauvage" loading="lazy"/><span class="p-card-name">Sauvage</span></div>
-              <div class="p-card" data-name="Bleu de Chanel" data-num="H2"><div class="p-card-check">✓</div><span class="p-card-num">H2</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Bleu de Chanel" loading="lazy"/><span class="p-card-name">Bleu de Chanel</span></div>
-              <div class="p-card" data-name="One Million" data-num="H3"><div class="p-card-check">✓</div><span class="p-card-num">H3</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="One Million" loading="lazy"/><span class="p-card-name">One Million</span></div>
+              <div class="p-card" data-name="Sauvage" data-num="H1"><span class="p-card-badge">الأكثر طلباً</span><div class="p-card-check">✓</div><span class="p-card-num">H1</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Sauvage" loading="lazy"/><span class="p-card-name">Sauvage</span></div>
+              <div class="p-card" data-name="Bleu de Chanel" data-num="H2"><span class="p-card-badge">كلاسيكي</span><div class="p-card-check">✓</div><span class="p-card-num">H2</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Bleu de Chanel" loading="lazy"/><span class="p-card-name">Bleu de Chanel</span></div>
+              <div class="p-card" data-name="One Million" data-num="H3"><span class="p-card-badge">مميز</span><div class="p-card-check">✓</div><span class="p-card-num">H3</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="One Million" loading="lazy"/><span class="p-card-name">One Million</span></div>
               <div class="p-card" data-name="Invictus" data-num="H4"><div class="p-card-check">✓</div><span class="p-card-num">H4</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Invictus" loading="lazy"/><span class="p-card-name">Invictus</span></div>
               <div class="p-card" data-name="Aventus – Creed" data-num="H30"><div class="p-card-check">✓</div><span class="p-card-num">H30</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Aventus – Creed" loading="lazy"/><span class="p-card-name">Aventus – Creed</span></div>
               <div class="p-card" data-name="Eros – Versace" data-num="H5"><div class="p-card-check">✓</div><span class="p-card-num">H5</span><img class="p-card-img" src="assets/webp/atheer-cutout.webp" alt="Eros – Versace" loading="lazy"/><span class="p-card-name">Eros – Versace</span></div>
@@ -609,6 +681,38 @@
         </div>
       </section>
 
+
+
+      <!-- TESTIMONIALS -->
+      <section class="testimonials" aria-labelledby="testi-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <div>
+              <div class="section-label">05 · آراء الزبائن</div>
+              <h2 class="section-title serif" id="testi-title">قالوا عن أثير</h2>
+            </div>
+            <p class="section-intro">تجارب حقيقية من زبائن وثقوا في أثير</p>
+          </div>
+          <div class="testi-grid">
+            <div class="testi-card reveal">
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-text">«والله ما توقعت يكون بهاد الجودة! رائحته تدوم من الصباح حتى الليل. طلبت Sauvage وCoco Mademoiselle، والجميع سألني عن العطر.»</p>
+              <div class="testi-author"><span class="testi-name">ياسمين ب.</span><span class="testi-city">الدار البيضاء</span></div>
+            </div>
+            <div class="testi-card reveal">
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-text">«كنت متردد في البداية، لكن بعد ما جرّبت أصبحت زبوناً دائماً. التوصيل وصل في يومين والتغليف راقي جداً. أثير صنع فرقاً حقيقياً.»</p>
+              <div class="testi-author"><span class="testi-name">كريم م.</span><span class="testi-city">مراكش</span></div>
+            </div>
+            <div class="testi-card reveal">
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-text">«أفضل قرار في حياتي! بقيت نشري للعطور الأصلية الغالية وأنا عندي نفس الرائحة بثمن مناسب. الباقة كاملة بـ199 درهم ما كنت نصدق.»</p>
+              <div class="testi-author"><span class="testi-name">سلمى ر.</span><span class="testi-city">فاس</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- EXPERIENCE -->
       <section class="experience" id="experience" aria-labelledby="experience-title">
         <div class="container">
@@ -631,6 +735,45 @@
       </section>
     </main>
 
+
+      <!-- FAQ -->
+      <section class="faq" aria-labelledby="faq-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <div>
+              <div class="section-label">06 · أسئلة شائعة</div>
+              <h2 class="section-title serif" id="faq-title">كل ما تريد معرفته</h2>
+            </div>
+          </div>
+          <div class="faq-grid reveal">
+            <div class="faq-item">
+              <div class="faq-q"><strong>هل العطور شبيهة الأصلي بنسبة 100%؟</strong><span class="faq-icon">+</span></div>
+              <div class="faq-a"><p>نعم، نستخدم عطوراً مستوحاة من أشهر العلامات العالمية بنفس الهرم الشمي وثبات عالي. تجربة مطابقة بثمن أقل.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q"><strong>كم يدوم العطر على الجلد؟</strong><span class="faq-icon">+</span></div>
+              <div class="faq-a"><p>بين 6 و12 ساعة حسب نوع البشرة وطريقة الاستخدام. نوصي بالرش على نقاط النبض (المعصم والعنق).</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q"><strong>كم يستغرق التوصيل؟</strong><span class="faq-icon">+</span></div>
+              <div class="faq-a"><p>بين 2 و4 أيام عمل داخل المغرب. التوصيل مجاني تماماً على جميع الطلبات بدون حد أدنى.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q"><strong>هل يمكنني الاختيار من الرجالي والنسائي معاً؟</strong><span class="faq-icon">+</span></div>
+              <div class="faq-a"><p>بالتأكيد! يمكنك الجمع بين أي 4 عطور من القائمتين النسائية والرجالية في نفس الباقة.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q"><strong>ما هو حجم القارورة؟</strong><span class="faq-icon">+</span></div>
+              <div class="faq-a"><p>كل قارورة 50ml extrait de parfum — تكفي لأشهر من الاستخدام اليومي.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q"><strong>كيف أتواصل في حال وجود مشكلة؟</strong><span class="faq-icon">+</span></div>
+              <div class="faq-a"><p>نحن متاحون على WhatsApp على مدار الأسبوع. اضغط زر واتساب في أسفل الصفحة وسنرد في أقل من ساعة.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     <!-- FOOTER -->
     <footer id="contact">
       <div class="container">
@@ -647,6 +790,10 @@
         <div class="footer-bottom"><span>© 2026 ATHEER · ALL RIGHTS RESERVED</span><span>حضور يترك أثراً</span></div>
       </div>
     </footer>
+
+
+    <!-- WHATSAPP FLOAT -->
+    <a class="wa-float" href="https://wa.me/212661852411" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">💬</a>
 
     <!-- CART OVERLAY + SIDEBAR -->
     <div class="cart-overlay" id="cart-overlay"></div>
@@ -1078,6 +1225,16 @@
           btn.disabled = false;
           if (label) label.textContent = "إرسال الطلب عبر واتساب";
         }, 900);
+      });
+
+
+      /* ── FAQ accordion ── */
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item.open').forEach(o => o.classList.remove('open'));
+          if (!isOpen) item.classList.add('open');
+        });
       });
 
       /* ── Init ── */
