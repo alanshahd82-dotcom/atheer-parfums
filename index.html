@@ -78,7 +78,7 @@
       .cta-strip-track { display:flex; gap:54px; animation:marquee 22s linear infinite; white-space:nowrap; width:max-content; }
       .cta-strip-track span { color:var(--gold-light); font-size:11px; letter-spacing:.15em; display:inline-flex; align-items:center; gap:18px; }
       .cta-strip-track span::after { width:5px; height:5px; background:var(--gold); content:""; border-radius:50%; display:inline-block; }
-      @keyframes marquee { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+      @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
       /* ── Sections ── */
       .section { position:relative; padding:140px 0; }
@@ -111,6 +111,8 @@
       .price-bundle { display:inline-flex; align-items:center; flex-wrap:wrap; gap:8px; padding:11px 18px; border:1px solid rgba(140,105,49,.55); background:rgba(183,147,83,.12); font-size:14px; color:#403629; font-weight:500; margin-top:10px; }
       .price-bundle b { color:var(--gold-light); font-size:18px; font-family:"Cormorant Garamond",serif; }
       .delivery-tag { font-size:9px; letter-spacing:.12em; color:var(--gold); padding:3px 8px; border:1px solid rgba(183,147,83,.4); }
+      .section-soft .price-bundle b { color:#7a5c1e; }
+      .section-soft .delivery-tag { color:#7a5c1e; border-color:rgba(122,92,30,.55); background:rgba(122,92,30,.08); }
 
       /* ── Gallery ── */
       .gallery { padding:140px 0; background:var(--ink); }
