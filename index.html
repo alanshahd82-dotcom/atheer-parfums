@@ -329,6 +329,42 @@
       .order-submit-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
       .order-submit-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
 
+      /* ════════ SPECIAL OFFER SECTION ════════ */
+      .special-offer { position:relative; padding:96px 0 80px; background:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; text-align:center; }
+      .special-offer::before { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%,rgba(183,147,83,.18),transparent 65%); content:""; pointer-events:none; }
+      .offer-badge { display:inline-flex; align-items:center; gap:10px; padding:7px 20px; border:1px solid var(--gold); background:rgba(183,147,83,.12); color:var(--gold-light); font-size:10px; letter-spacing:.22em; text-transform:uppercase; margin-bottom:28px; }
+      .offer-badge::before,.offer-badge::after { content:"✦"; color:var(--gold); font-size:8px; }
+      .offer-headline { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:10px; }
+      .offer-big-num { font-family:"Cormorant Garamond",serif; font-size:clamp(72px,14vw,140px); font-weight:600; color:var(--gold-light); line-height:1; }
+      .offer-mid-text { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
+      .offer-mid-text span { font-size:clamp(22px,4.5vw,44px); font-weight:600; color:var(--cream); letter-spacing:-.03em; line-height:1.2; }
+      .offer-gift-tag { display:inline-flex; align-items:center; gap:8px; padding:5px 14px; background:rgba(183,147,83,.15); border:1px solid rgba(183,147,83,.45); color:var(--gold-light); font-size:clamp(13px,2.5vw,22px); font-weight:500; border-radius:2px; }
+      .offer-sub { color:var(--muted); font-size:13px; letter-spacing:.05em; margin:0 0 44px; }
+      .offer-bottles { display:flex; align-items:flex-end; justify-content:center; gap:0; margin-bottom:36px; flex-wrap:wrap; }
+      .offer-bottle-group { display:flex; align-items:flex-end; gap:-6px; }
+      .offer-bottle-group .ob { width:clamp(56px,8.5vw,90px); margin:0 -4px; filter:saturate(.85) contrast(1.07); drop-shadow(0 8px 20px rgba(0,0,0,.4)); transition:transform .3s; }
+      .offer-bottle-group .ob:hover { transform:translateY(-4px) scale(1.04); }
+      .offer-plus-sep { font-family:"Cormorant Garamond",serif; font-size:clamp(32px,6vw,58px); color:var(--gold); font-weight:600; padding:0 14px; align-self:center; }
+      .offer-gift-wrap { position:relative; display:flex; flex-direction:column; align-items:center; gap:6px; }
+      .offer-gift-wrap .ob { width:clamp(56px,8.5vw,90px); filter:saturate(.85) contrast(1.07); }
+      .offer-gift-ribbon { font-size:clamp(22px,4vw,34px); line-height:1; }
+      .offer-gift-pill { display:inline-flex; padding:4px 12px; background:var(--gold); color:#17100a; font-size:9px; font-weight:700; letter-spacing:.12em; white-space:nowrap; }
+      .offer-price-wrap { display:inline-flex; align-items:center; gap:16px; padding:18px 32px; border:1px solid rgba(183,147,83,.5); background:rgba(12,10,8,.6); backdrop-filter:blur(12px); margin-bottom:28px; flex-wrap:wrap; justify-content:center; }
+      .offer-price-pre { color:var(--muted); font-size:13px; }
+      .offer-price-num { font-family:"Cormorant Garamond",serif; font-size:clamp(54px,10vw,88px); font-weight:600; color:var(--gold-light); line-height:1; }
+      .offer-price-unit { display:flex; flex-direction:column; align-items:flex-start; gap:2px; }
+      .offer-price-unit span { color:var(--cream); font-size:14px; font-weight:600; }
+      .offer-price-unit small { color:var(--gold); font-size:9px; letter-spacing:.15em; }
+      .offer-trust { display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; border:1px solid var(--line); margin-bottom:28px; }
+      .ot-item { display:flex; align-items:center; gap:8px; padding:12px 22px; color:#c9bba8; font-size:10px; border-left:1px solid var(--line); }
+      .ot-item:last-child { border-left:0; }
+      .ot-icon { color:var(--gold-light); font-size:14px; flex-shrink:0; }
+      .ot-texts b { display:block; font-size:10px; font-weight:600; color:var(--cream); }
+      .ot-texts small { font-size:9px; color:var(--muted); }
+      .offer-cta { padding:15px 36px; font-size:13px; font-weight:700; letter-spacing:.08em; }
+      .offer-urgency { display:block; margin-top:14px; color:var(--muted); font-size:9px; letter-spacing:.16em; text-transform:uppercase; }
+      .offer-urgency span { color:var(--gold); }
+
       /* ════════ RESPONSIVE ════════ */
       @media (max-width:850px) {
         .container,.hero-content { width:min(100% - 36px,620px); }
@@ -449,6 +485,11 @@
         .price-compare { gap:10px; }
         .pc-item { padding:11px 16px; }
         .wa-float { bottom:72px; right:14px; width:46px; height:46px; font-size:20px; }
+        .offer-trust { flex-direction:column; }
+        .ot-item { border-left:0; border-bottom:1px solid var(--line); width:100%; justify-content:flex-start; }
+        .ot-item:last-child { border-bottom:0; }
+        .offer-price-wrap { padding:14px 20px; }
+        .offer-bottles { gap:4px; }
       }
     </style>
   </head>
@@ -504,6 +545,67 @@
           <span>باقة 4 قارورات · 199 درهم · توصيل مجاني</span>
         </div>
       </div>
+
+      <!-- SPECIAL OFFER -->
+      <section class="special-offer" id="special-offer" aria-labelledby="offer-title">
+        <div class="container">
+          <div class="offer-badge" id="offer-title">عرض خاص · محدود</div>
+
+          <div class="offer-headline">
+            <span class="offer-big-num">3</span>
+            <div class="offer-mid-text">
+              <span>عطور +</span>
+              <span class="offer-gift-tag">🎁 الرابع هدية مجاناً</span>
+            </div>
+          </div>
+          <p class="offer-sub">فخامة تدوم… بسعر لا يُفوت</p>
+
+          <!-- Bottles visual -->
+          <div class="offer-bottles reveal">
+            <div class="offer-bottle-group">
+              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="عطر أثير" />
+              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="عطر أثير" />
+              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="عطر أثير" />
+            </div>
+            <span class="offer-plus-sep">+</span>
+            <div class="offer-gift-wrap">
+              <span class="offer-gift-ribbon">🎀</span>
+              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="هدية مجانية" />
+              <span class="offer-gift-pill">هدية مجانا</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="offer-price-wrap reveal">
+            <span class="offer-price-pre">بـ</span>
+            <span class="offer-price-num">199</span>
+            <div class="offer-price-unit">
+              <span>درهم فقط!</span>
+              <small>🚚 توصيل مجاني</small>
+            </div>
+          </div>
+
+          <!-- Trust icons -->
+          <div class="offer-trust reveal">
+            <div class="ot-item">
+              <span class="ot-icon">✦</span>
+              <div class="ot-texts"><b>جودة عالية</b><small>ثبات يدوم طويلاً</small></div>
+            </div>
+            <div class="ot-item">
+              <span class="ot-icon">🚚</span>
+              <div class="ot-texts"><b>توصيل سريع</b><small>لكافة المدن المغربية</small></div>
+            </div>
+            <div class="ot-item">
+              <span class="ot-icon">💳</span>
+              <div class="ot-texts"><b>الدفع عند الاستلام</b><small>راحة وأمان</small></div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a class="gold-button offer-cta reveal" href="#catalog">اطلب الآن — سارع قبل نفاد الكمية <span>←</span></a>
+          <span class="offer-urgency">⚡ <span>عرض محدود</span> · الكميات محدودة</span>
+        </div>
+      </section>
 
       <!-- PRODUCT -->
       <section class="section section-soft" id="perfume" aria-labelledby="perfume-title">
