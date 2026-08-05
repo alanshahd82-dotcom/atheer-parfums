@@ -340,15 +340,26 @@
       .offer-mid-text span { font-size:clamp(22px,4.5vw,44px); font-weight:600; color:var(--cream); letter-spacing:-.03em; line-height:1.2; }
       .offer-gift-tag { display:inline-flex; align-items:center; gap:8px; padding:5px 14px; background:rgba(183,147,83,.15); border:1px solid rgba(183,147,83,.45); color:var(--gold-light); font-size:clamp(13px,2.5vw,22px); font-weight:500; border-radius:2px; }
       .offer-sub { color:var(--muted); font-size:13px; letter-spacing:.05em; margin:0 0 44px; }
-      .offer-bottles { display:flex; align-items:flex-end; justify-content:center; gap:0; margin-bottom:36px; flex-wrap:wrap; }
-      .offer-bottle-group { display:flex; align-items:flex-end; gap:-6px; }
-      .offer-bottle-group .ob { width:clamp(56px,8.5vw,90px); margin:0 -4px; filter:saturate(.85) contrast(1.07); drop-shadow(0 8px 20px rgba(0,0,0,.4)); transition:transform .3s; }
-      .offer-bottle-group .ob:hover { transform:translateY(-4px) scale(1.04); }
-      .offer-plus-sep { font-family:"Cormorant Garamond",serif; font-size:clamp(32px,6vw,58px); color:var(--gold); font-weight:600; padding:0 14px; align-self:center; }
-      .offer-gift-wrap { position:relative; display:flex; flex-direction:column; align-items:center; gap:6px; }
-      .offer-gift-wrap .ob { width:clamp(56px,8.5vw,90px); filter:saturate(.85) contrast(1.07); }
-      .offer-gift-ribbon { font-size:clamp(22px,4vw,34px); line-height:1; }
-      .offer-gift-pill { display:inline-flex; padding:4px 12px; background:var(--gold); color:#17100a; font-size:9px; font-weight:700; letter-spacing:.12em; white-space:nowrap; }
+      .offer-bottles { display:flex; align-items:flex-end; justify-content:center; gap:10px; margin-bottom:36px; flex-wrap:wrap; }
+      .offer-bottle-group { display:flex; align-items:flex-end; gap:10px; }
+      .offer-bottle-group .ob { width:clamp(68px,9vw,104px); filter:saturate(.88) contrast(1.08); transition:transform .35s; }
+      .offer-bottle-group .ob:hover { transform:translateY(-5px) scale(1.04); }
+      .offer-plus-sep { font-family:"Cormorant Garamond",serif; font-size:clamp(36px,7vw,64px); color:var(--gold); font-weight:600; padding:0 10px; align-self:center; line-height:1; }
+      .offer-gift-wrap { position:relative; display:flex; flex-direction:column; align-items:center; gap:0; }
+      .offer-gift-wrap .ob { width:clamp(68px,9vw,104px); filter:saturate(.88) contrast(1.08); }
+      .offer-gift-pill { display:inline-flex; padding:4px 12px; background:var(--gold); color:#17100a; font-size:9px; font-weight:700; letter-spacing:.12em; white-space:nowrap; margin-top:6px; }
+      /* Bottles image */
+      .offer-img-wrap { width:min(520px,100%); margin:0 auto 36px; border:1px solid var(--line); overflow:hidden; position:relative; aspect-ratio:4/3; }
+      .offer-main-img { width:100%; height:100%; object-fit:cover; object-position:center 62%; display:block; }
+      /* CSS Gold Bow Ribbon */
+      .offer-bow { position:relative; width:clamp(68px,9vw,104px); height:clamp(30px,5vw,46px); display:flex; align-items:center; justify-content:center; margin-bottom:0; flex-shrink:0; }
+      .offer-bow::before,.offer-bow::after { content:""; position:absolute; top:50%; border-radius:50%; background:linear-gradient(135deg,#f0d078 0%,#b79353 40%,#e0c17f 60%,#a07830 100%); box-shadow:0 2px 8px rgba(183,147,83,.5); }
+      .offer-bow::before { width:clamp(22px,3.5vw,36px); height:clamp(16px,2.5vw,26px); left:50%; transform:translate(-104%,-50%) rotate(-18deg); }
+      .offer-bow::after  { width:clamp(22px,3.5vw,36px); height:clamp(16px,2.5vw,26px); right:50%; transform:translate(104%,-50%) rotate(18deg); }
+      .offer-bow-knot { position:absolute; width:clamp(10px,1.5vw,14px); height:clamp(10px,1.5vw,14px); background:linear-gradient(135deg,#f5dc88,#b07a28); border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; box-shadow:0 1px 6px rgba(183,147,83,.7); }
+      .offer-bow-tail-l,.offer-bow-tail-r { position:absolute; bottom:-8px; width:clamp(6px,1vw,10px); height:clamp(12px,2vw,18px); background:linear-gradient(180deg,#b79353,#8c6224); border-radius:0 0 3px 3px; }
+      .offer-bow-tail-l { left:calc(50% - clamp(10px,1.5vw,16px)); transform:rotate(-12deg); transform-origin:top center; }
+      .offer-bow-tail-r { right:calc(50% - clamp(10px,1.5vw,16px)); transform:rotate(12deg); transform-origin:top center; }
       .offer-price-wrap { display:inline-flex; align-items:center; gap:16px; padding:18px 32px; border:1px solid rgba(183,147,83,.5); background:rgba(12,10,8,.6); backdrop-filter:blur(12px); margin-bottom:28px; flex-wrap:wrap; justify-content:center; }
       .offer-price-pre { color:var(--muted); font-size:13px; }
       .offer-price-num { font-family:"Cormorant Garamond",serif; font-size:clamp(54px,10vw,88px); font-weight:600; color:var(--gold-light); line-height:1; }
@@ -560,19 +571,9 @@
           </div>
           <p class="offer-sub">فخامة تدوم… بسعر لا يُفوت</p>
 
-          <!-- Bottles visual -->
-          <div class="offer-bottles reveal">
-            <div class="offer-bottle-group">
-              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="عطر أثير" />
-              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="عطر أثير" />
-              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="عطر أثير" />
-            </div>
-            <span class="offer-plus-sep">+</span>
-            <div class="offer-gift-wrap">
-              <span class="offer-gift-ribbon">🎀</span>
-              <img class="ob" src="assets/webp/atheer-cutout.webp" alt="هدية مجانية" />
-              <span class="offer-gift-pill">هدية مجانا</span>
-            </div>
+          <!-- Offer bottles (cropped from product image) -->
+          <div class="offer-img-wrap reveal">
+            <img class="offer-main-img" src="assets/special-offer.jpg" alt="3 عطور أثير + هدية مجانية" />
           </div>
 
           <!-- Price -->
