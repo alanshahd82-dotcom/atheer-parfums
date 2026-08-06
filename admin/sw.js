@@ -1,12 +1,6 @@
-const CACHE = "atheer-admin-v1";
-const SHELL = [
-  "/admin/",
-  "/admin/index.html",
-  "/admin/styles.css",
-  "/admin/app.js",
-  "/admin/config.js",
-  "/admin/manifest.webmanifest"
-];
+const BASE = new URL("./", self.registration.scope).pathname;
+const CACHE = "atheer-admin-v2";
+const SHELL = ["", "index.html", "styles.css", "app.js", "config.js", "manifest.webmanifest"].map(file => `${BASE}${file}`);
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)));
@@ -14,7 +8,10 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
+  );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", event => {
