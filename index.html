@@ -55,7 +55,7 @@
 
       /* ── Hero ── */
       .hero { position:relative; min-height:100svh; display:flex; align-items:flex-end; isolation:isolate; overflow:hidden; }
-      .hero::before { position:absolute; inset:0; z-index:-2; background: linear-gradient(90deg,rgba(12,10,8,.5) 5%,rgba(12,10,8,.2) 47%,rgba(12,10,8,.04) 100%), linear-gradient(0deg,rgba(12,10,8,.58),rgba(12,10,8,.01) 67%), url("assets/webp/hero-atheer.webp") center/cover no-repeat; content:""; filter:brightness(1.7) saturate(1.08) contrast(1.06); }
+      .hero::before { position:absolute; inset:0; z-index:-2; background: linear-gradient(90deg,rgba(12,10,8,.5) 5%,rgba(12,10,8,.2) 47%,rgba(12,10,8,.04) 100%), linear-gradient(0deg,rgba(12,10,8,.58),rgba(12,10,8,.01) 67%), var(--atheer-hero-image,url("assets/webp/hero-atheer.webp")) center/cover no-repeat; content:""; filter:brightness(1.7) saturate(1.08) contrast(1.06); }
       .hero::after { position:absolute; inset:0; z-index:-1; background: radial-gradient(circle at 28% 47%,rgba(224,193,127,.2),transparent 28%), radial-gradient(circle at 75% 22%,rgba(224,193,127,.18),transparent 22%), linear-gradient(90deg,rgba(224,193,127,.08),transparent 42%); content:""; mix-blend-mode:screen; }
       .hero-content { width:min(1180px,calc(100% - 56px)); margin:0 auto; padding-bottom:105px; }
       .eyebrow { display:flex; align-items:center; gap:13px; color:var(--gold-light); font-size:10px; letter-spacing:.18em; }
@@ -977,6 +977,7 @@
     <!-- TOAST -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+    <script src="admin/config.js"></script>
     <script>
     (function() {
       'use strict';
@@ -1345,5 +1346,6 @@
 
     })();
     </script>
+    <script src="site-data.js"></script>
   </body>
 </html>
