@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#b79353" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="../assets/atheer-cutout.png" />
+    <meta name="description" content="لوحة إدارة متجر أثير" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="../assets/atheer-cutout.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./config.js"></script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <section id="auth-view" class="auth-view">
+      <div class="auth-card">
+        <div class="brand-mark"><span>أثير</span><small>ATHEER · CONTROL</small></div>
+        <p class="eyebrow">مساحة خاصة</p>
+        <h1>لوحة التحكم</h1>
+        <p class="auth-copy">أدر المنتجات والصور والمحتوى من مكان واحد، مع بقاء الموقع العام كما هو.</p>
+        <form id="login-form">
+          <label>البريد الإلكتروني<input id="login-email" type="email" autocomplete="email" required placeholder="admin@atheer.ma" /></label>
+          <label>كلمة المرور<input id="login-password" type="password" autocomplete="current-password" required placeholder="••••••••" /></label>
+          <button class="primary-button" type="submit"><span>دخول آمن</span><b>←</b></button>
+          <p id="login-error" class="form-error" hidden></p>
+        </form>
+        <a class="back-link" href="../">العودة إلى الموقع ←</a>
+      </div>
+    </section>
+
+    <div id="app-view" class="app-shell" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span>أثير</span><small>ATHEER</small></div>
+        <div class="workspace-label">إدارة المتجر</div>
+        <nav id="main-nav">
+          <button class="nav-item active" data-view="overview"><span>⌂</span>نظرة عامة</button>
+          <button class="nav-item" data-view="products"><span>◇</span>المنتجات</button>
+          <button class="nav-item" data-view="media"><span>▧</span>الصور والوسائط</button>
+          <button class="nav-item" data-view="content"><span>✦</span>المحتوى</button>
+          <button class="nav-item" data-view="settings"><span>⚙</span>الإعدادات</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <a href="../" class="nav-item"><span>↗</span>مشاهدة الموقع</a>
+          <button id="logout-btn" class="nav-item danger"><span>⇥</span>تسجيل الخروج</button>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <button id="mobile-menu" class="mobile-menu" type="button" aria-label="فتح القائمة">☰</button>
+          <div><p class="topbar-kicker">ATHEER / CONTROL ROOM</p><h1 id="page-title">نظرة عامة</h1></div>
+          <div class="topbar-user"><span id="user-email"></span><span class="user-avatar">A</span></div>
+        </header>
+
+        <div id="view-overview" class="view active-view"></div>
+        <div id="view-products" class="view"></div>
+        <div id="view-media" class="view"></div>
+        <div id="view-content" class="view"></div>
+        <div id="view-settings" class="view"></div>
+      </main>
+    </div>
+
+    <dialog id="product-dialog" class="editor-dialog">
+      <form id="product-form" method="dialog">
+        <div class="dialog-head"><div><p class="eyebrow">CATALOG</p><h2 id="product-dialog-title">منتج جديد</h2></div><button class="icon-button" value="cancel" type="submit">×</button></div>
+        <input id="product-id" type="hidden" />
+        <div class="form-grid">
+          <label>الكود<input id="product-code" required placeholder="F11" /></label>
+          <label>الاسم<input id="product-name" required placeholder="اسم العطر" /></label>
+          <label>القسم<select id="product-gender"><option value="femme">نسائي</option><option value="homme">رجالي</option></select></label>
+          <label>ترتيب الظهور<input id="product-order" type="number" min="0" value="0" /></label>
+        </div>
+        <label class="check-label"><input id="product-featured" type="checkbox" checked /> يظهر في المنتجات المميزة</label>
+        <div class="dialog-actions"><button class="secondary-button" value="cancel" type="submit">إلغاء</button><button class="primary-button" id="product-save" value="default" type="submit">حفظ المنتج</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="content-dialog" class="editor-dialog">
+      <form id="content-form" method="dialog">
+        <div class="dialog-head"><div><p class="eyebrow">CONTENT</p><h2>تعديل المحتوى</h2></div><button class="icon-button" value="cancel" type="submit">×</button></div>
+        <input id="content-id" type="hidden" /><input id="content-key" type="hidden" />
+        <label>اسم الحقل<input id="content-label" required /></label>
+        <label>القيمة<textarea id="content-value" required rows="6"></textarea></label>
+        <div class="dialog-actions"><button class="secondary-button" value="cancel" type="submit">إلغاء</button><button class="primary-button" value="default" type="submit">حفظ المحتوى</button></div>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
