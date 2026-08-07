@@ -5,16 +5,31 @@
   const client = config.supabaseUrl && config.supabaseAnonKey && window.supabase
     ? window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey)
     : null;
-  const state = { products: [], assets: [], content: [], settings: [], currentView: "overview", session: null };
+  const state = {
+    products: [],
+    assets: [],
+    content: [],
+    settings: [],
+    currentView: "overview",
+    session: null,
+    productAssetKey: ""
+  };
+  const defaultSettings = [
+    { setting_key: "whatsapp_number", value: "212661852411", label: "رقم واتساب بصيغة دولية" },
+    { setting_key: "bundle_price", value: "199", label: "سعر الباقة بالدرهم" },
+    { setting_key: "delivery_text", value: "توصيل مجاني على جميع الطلبات", label: "نص التوصيل" }
+  ];
   const $ = selector => document.querySelector(selector);
-  const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+  const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+  }[char]));
 
   function toast(message) {
     const element = $("#toast");
     element.textContent = message;
     element.classList.add("show");
-    window.clearTimeout(toast.timer);
-    toast.timer = window.setTimeout(() => element.classList.remove("show"), 3000);
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => element.classList.remove("show"), 3200);
   }
 
   function setLoginError(message) {
@@ -23,7 +38,7 @@
     element.hidden = !message;
   }
 
-  function isConfigured() {
+  function configured() {
     return Boolean(client && config.supabaseUrl && config.supabaseAnonKey);
   }
 
@@ -42,8 +57,8 @@
   async function signIn(event) {
     event.preventDefault();
     setLoginError("");
-    if (!isConfigured()) {
-      setLoginError("أكمل إعداد Supabase في admin/config.js ثم أعد المحاولة.");
+    if (!configured()) {
+      setLoginError("تعذر الاتصال بالخدمة. حاول مرة أخرى لاحقاً.");
       return;
     }
     const button = event.currentTarget.querySelector("button");
@@ -90,81 +105,117 @@
   }
 
   function renderView() {
-    if (state.currentView === "overview") renderOverview();
-    if (state.currentView === "products") renderProducts();
-    if (state.currentView === "media") renderMedia();
-    if (state.currentView === "content") renderContent();
-    if (state.currentView === "settings") renderSettings();
+    ({ overview: renderOverview, products: renderProducts, media: renderMedia, content: renderContent, settings: renderSettings }[state.currentView])();
   }
 
   function renderOverview() {
     const visibleProducts = state.products.filter(item => !item.is_hidden);
-    const hiddenProducts = state.products.filter(item => item.is_hidden);
     const visibleAssets = state.assets.filter(item => !item.is_hidden);
     $("#view-overview").innerHTML = `
       <div class="dashboard-grid">
         <div class="stat-card"><small>كل المنتجات</small><strong>${state.products.length}</strong></div>
         <div class="stat-card"><small>منتجات ظاهرة</small><strong>${visibleProducts.length}</strong></div>
-        <div class="stat-card"><small>صور مسجلة</small><strong>${state.assets.length}</strong></div>
-        <div class="stat-card"><small>محتوى قابل للتعديل</small><strong>${state.content.length}</strong></div>
+        <div class="stat-card"><small>الصور المسجلة</small><strong>${state.assets.length}</strong></div>
+        <div class="stat-card"><small>الحقول القابلة للتعديل</small><strong>${state.content.length + state.settings.length}</strong></div>
       </div>
       <section class="panel">
-        <div class="panel-head"><div><h2>حالة المتجر</h2><p>ملخص سريع للمحتوى الذي يظهر للزوار</p></div><span class="badge visible">${visibleProducts.length} منتج نشط</span></div>
+        <div class="panel-head"><div><h2>حالة المتجر</h2><p>كل تغيير محفوظ هنا ينعكس على الموقع العام بعد التحديث.</p></div><span class="badge visible">${visibleProducts.length} منتج نشط</span></div>
         <div class="overview-body">
-          <div class="overview-line"><span>المنتجات المخفية</span><b>${hiddenProducts.length}</b></div>
+          <div class="overview-line"><span>المنتجات المخفية</span><b>${state.products.length - visibleProducts.length}</b></div>
           <div class="overview-line"><span>الصور الظاهرة</span><b>${visibleAssets.length}</b></div>
-          <div class="overview-line"><span>آخر مزامنة</span><b>${new Date().toLocaleDateString("ar-MA")}</b></div>
+          <div class="overview-line"><span>آخر تحديث</span><b>${new Date().toLocaleDateString("ar-MA")}</b></div>
         </div>
       </section>`;
   }
 
   function renderProducts() {
     const query = ($("#product-search")?.value || "").toLowerCase();
-    const showHidden = $("#show-hidden-products")?.checked;
-    const rows = state.products.filter(item => (showHidden || !item.is_hidden) && `${item.code} ${item.name}`.toLowerCase().includes(query));
+    const showHidden = Boolean($("#show-hidden-products")?.checked);
+    const rows = state.products.filter(item =>
+      (showHidden || !item.is_hidden) &&
+      `${item.code} ${item.name}`.toLowerCase().includes(query)
+    );
     $("#view-products").innerHTML = `
       <section class="panel">
-        <div class="panel-head"><div><h2>كتالوج العطور</h2><p>الإخفاء يحافظ على المنتج ويمكن استرجاعه لاحقاً.</p></div><div class="toolbar"><input id="product-search" value="${escapeHtml(query)}" placeholder="ابحث بالاسم أو الكود" /><label class="check-label"><input id="show-hidden-products" type="checkbox" ${showHidden ? "checked" : ""}/> المخفية</label><button class="primary-button" id="add-product">منتج جديد <b>+</b></button></div></div>
-        <table class="data-table"><thead><tr><th>الكود</th><th>الاسم</th><th>القسم</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody>
-          ${rows.length ? rows.map(productRow).join("") : '<tr><td colspan="5" class="empty">لا توجد منتجات مطابقة.</td></tr>'}
+        <div class="panel-head"><div><h2>كتالوج العطور</h2><p>الإخفاء مؤقت، والحذف نهائي بعد التأكيد.</p></div>
+          <div class="toolbar"><input id="product-search" value="${escapeHtml(query)}" placeholder="ابحث بالاسم أو الكود" />
+          <label class="check-label"><input id="show-hidden-products" type="checkbox" ${showHidden ? "checked" : ""}/> المخفية</label>
+          <button class="primary-button" id="add-product">منتج جديد <b>+</b></button></div>
+        </div>
+        <table class="data-table"><thead><tr><th>الكود</th><th>الاسم</th><th>القسم</th><th>الصورة</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody>
+          ${rows.length ? rows.map(productRow).join("") : '<tr><td colspan="6" class="empty">لا توجد منتجات مطابقة.</td></tr>'}
         </tbody></table>
       </section>`;
     $("#product-search").addEventListener("input", renderProducts);
     $("#show-hidden-products").addEventListener("change", renderProducts);
     $("#add-product").addEventListener("click", () => openProductDialog());
-    $("#view-products").querySelectorAll("[data-product-action]").forEach(button => button.addEventListener("click", () => productAction(button.dataset.productAction, button.dataset.id)));
+    $("#view-products").querySelectorAll("[data-product-action]").forEach(button =>
+      button.addEventListener("click", () => productAction(button.dataset.productAction, button.dataset.id)));
+  }
+
+  function productAsset(item) {
+    return state.assets.find(asset => asset.asset_key === item.image_asset_key);
+  }
+
+  function assetUrl(asset) {
+    return asset?.public_url || (asset?.storage_path ? `../${asset.storage_path}` : "");
   }
 
   function productRow(item) {
+    const asset = productAsset(item);
     return `<tr class="${item.is_hidden ? "is-hidden" : ""}">
-      <td><span class="code">${escapeHtml(item.code)}</span></td><td>${escapeHtml(item.name)}</td><td>${item.gender === "femme" ? "نسائي" : "رجالي"}</td>
+      <td><span class="code">${escapeHtml(item.code)}</span></td>
+      <td>${escapeHtml(item.name)}</td>
+      <td>${item.gender === "femme" ? "نسائي" : "رجالي"}</td>
+      <td>${assetUrl(asset) ? `<img class="table-thumb" src="${escapeHtml(assetUrl(asset))}" alt="" />` : "—"}</td>
       <td><span class="badge ${item.is_hidden ? "hidden-badge" : "visible"}">${item.is_hidden ? "مخفي" : "ظاهر"}</span></td>
-      <td><div class="row-actions"><button class="table-action" data-product-action="edit" data-id="${item.id}">تعديل</button><button class="table-action ${item.is_hidden ? "restore" : ""}" data-product-action="toggle" data-id="${item.id}">${item.is_hidden ? "استرجاع" : "إخفاء"}</button></div></td>
+      <td><div class="row-actions">
+        <button class="table-action" data-product-action="edit" data-id="${item.id}">تعديل</button>
+        <button class="table-action ${item.is_hidden ? "restore" : ""}" data-product-action="toggle" data-id="${item.id}">${item.is_hidden ? "استرجاع" : "إخفاء"}</button>
+        <button class="table-action delete-action" data-product-action="delete" data-id="${item.id}">حذف</button>
+      </div></td>
     </tr>`;
   }
 
   function renderMedia() {
     $("#view-media").innerHTML = `
-      <section class="panel"><div class="panel-head"><div><h2>مكتبة الصور</h2><p>أخفِ أي صورة من الموقع دون حذفها نهائياً.</p></div></div>
-      <div class="upload-box"><div><strong>رفع صورة جديدة</strong><p>PNG أو JPG أو WEBP — تحفظ في Supabase Storage.</p></div><input id="media-upload" type="file" accept="image/png,image/jpeg,image/webp" /></div>
-      <div class="media-grid">${state.assets.length ? state.assets.map(assetCard).join("") : '<div class="empty">لا توجد صور مسجلة بعد.</div>'}</div></section>`;
+      <section class="panel"><div class="panel-head"><div><h2>مكتبة الصور</h2><p>ارفع من الهاتف أو الحاسوب، ثم اربط الصورة بأي منتج أو جزء من الموقع.</p></div></div>
+      <div class="upload-box"><div><strong>رفع صورة جديدة</strong><p>PNG أو JPG أو WEBP، حتى 8MB.</p></div><input id="media-upload" type="file" accept="image/png,image/jpeg,image/webp" /></div>
+      <div class="media-grid">${state.assets.length ? state.assets.map(assetCard).join("") : '<div class="empty">لا توجد صور مسجلة.</div>'}</div></section>`;
     $("#media-upload").addEventListener("change", uploadAsset);
-    $("#view-media").querySelectorAll("[data-asset-action]").forEach(button => button.addEventListener("click", () => assetAction(button.dataset.assetAction, button.dataset.id)));
+    $("#view-media").querySelectorAll("[data-asset-action]").forEach(button =>
+      button.addEventListener("click", () => assetAction(button.dataset.assetAction, button.dataset.id)));
   }
 
   function assetCard(item) {
-    const url = item.public_url || `../${item.storage_path || ""}`;
-    return `<article class="media-card ${item.is_hidden ? "is-hidden" : ""}"><img class="media-thumb" src="${escapeHtml(url)}" alt="${escapeHtml(item.alt_text)}" /><div class="media-info"><strong>${escapeHtml(item.asset_key)}</strong><small>${escapeHtml(item.placement)} · ${item.is_hidden ? "مخفي" : "ظاهر"}</small><div class="row-actions"><button class="table-action ${item.is_hidden ? "restore" : ""}" data-asset-action="toggle" data-id="${item.id}">${item.is_hidden ? "استرجاع" : "إخفاء"}</button></div></div></article>`;
+    const url = assetUrl(item);
+    return `<article class="media-card ${item.is_hidden ? "is-hidden" : ""}">
+      <img class="media-thumb" src="${escapeHtml(url)}" alt="${escapeHtml(item.alt_text)}" />
+      <div class="media-info"><strong>${escapeHtml(item.asset_key)}</strong><small>${escapeHtml(item.placement)} · ${item.is_hidden ? "مخفي" : "ظاهر"}</small>
+      <div class="row-actions"><button class="table-action ${item.is_hidden ? "restore" : ""}" data-asset-action="toggle" data-id="${item.id}">${item.is_hidden ? "استرجاع" : "إخفاء"}</button>
+      <button class="table-action delete-action" data-asset-action="delete" data-id="${item.id}">حذف</button></div></div></article>`;
   }
 
   function renderContent() {
-    $("#view-content").innerHTML = `<section class="panel"><div class="panel-head"><div><h2>محتوى الموقع</h2><p>عدّل النصوص دون لمس التصميم أو الكود.</p></div></div><div class="content-list">${state.content.length ? state.content.map(item => `<div class="content-row"><span class="content-key">${escapeHtml(item.content_key)}</span><span class="content-value">${escapeHtml(item.value)}</span><button class="table-action" data-content-id="${item.id}">تعديل</button></div>`).join("") : '<div class="empty">شغّل supabase/schema.sql أولاً.</div>'}</div></section>`;
-    $("#view-content").querySelectorAll("[data-content-id]").forEach(button => button.addEventListener("click", () => openContentDialog(button.dataset.contentId)));
+    $("#view-content").innerHTML = `<section class="panel"><div class="panel-head"><div><h2>محتوى الموقع</h2><p>عدّل النصوص أو أخفها من الموقع العام.</p></div></div>
+      <div class="content-list">${state.content.length ? state.content.map(item => `
+        <div class="content-row ${item.is_hidden ? "is-hidden" : ""}"><span class="content-key">${escapeHtml(item.content_key)}</span>
+        <span class="content-value">${escapeHtml(item.value)}</span><span class="badge ${item.is_hidden ? "hidden-badge" : "visible"}">${item.is_hidden ? "مخفي" : "ظاهر"}</span>
+        <div class="row-actions"><button class="table-action" data-content-action="edit" data-id="${item.id}">تعديل</button>
+        <button class="table-action ${item.is_hidden ? "restore" : ""}" data-content-action="toggle" data-id="${item.id}">${item.is_hidden ? "استرجاع" : "إخفاء"}</button>
+        <button class="table-action delete-action" data-content-action="delete" data-id="${item.id}">حذف</button></div></div>`).join("") : '<div class="empty">لا يوجد محتوى محفوظ.</div>'}</div></section>`;
+    $("#view-content").querySelectorAll("[data-content-action]").forEach(button =>
+      button.addEventListener("click", () => contentAction(button.dataset.contentAction, button.dataset.id)));
   }
 
   function renderSettings() {
-    $("#view-settings").innerHTML = `<section class="panel"><div class="panel-head"><div><h2>إعدادات المتجر</h2><p>بيانات التواصل والعرض الحالي.</p></div></div><div class="settings-list">${state.settings.length ? state.settings.map(item => `<div class="setting-row"><span class="setting-label">${escapeHtml(item.label || item.setting_key)}</span><label><input data-setting-key="${escapeHtml(item.setting_key)}" value="${escapeHtml(item.value)}" /></label></div>`).join("") : '<div class="empty">لا توجد إعدادات بعد.</div>'}</div><div class="panel-head"><button id="save-settings" class="primary-button">حفظ الإعدادات <b>←</b></button></div></section>`;
+    const settings = state.settings.length ? state.settings : defaultSettings;
+    $("#view-settings").innerHTML = `<section class="panel"><div class="panel-head"><div><h2>إعدادات المتجر</h2><p>بيانات التواصل والأسعار التي تظهر للزوار.</p></div></div>
+      <div class="settings-list">${settings.map(item => `<div class="setting-row"><span class="setting-label">${escapeHtml(item.label || item.setting_key)}</span><label><input data-setting-key="${escapeHtml(item.setting_key)}" data-setting-label="${escapeHtml(item.label || item.setting_key)}" value="${escapeHtml(item.value)}" /></label><button class="table-action delete-action" data-setting-delete="${escapeHtml(item.setting_key)}">حذف</button></div>`).join("")}</div>
+      <div class="panel-head"><button id="save-settings" class="primary-button">حفظ الإعدادات <b>←</b></button></div></section>`;
     $("#save-settings")?.addEventListener("click", saveSettings);
+    $("#view-settings").querySelectorAll("[data-setting-delete]").forEach(button =>
+      button.addEventListener("click", () => deleteSetting(button.dataset.settingDelete)));
   }
 
   function openProductDialog(id) {
@@ -176,74 +227,148 @@
     $("#product-gender").value = product?.gender || "femme";
     $("#product-order").value = product?.sort_order || 0;
     $("#product-featured").checked = product?.is_featured !== false;
+    state.productAssetKey = product?.image_asset_key || "";
+    fillAssetSelect();
     $("#product-dialog").showModal();
+  }
+
+  function fillAssetSelect() {
+    const select = $("#product-image");
+    if (!select) return;
+    select.innerHTML = `<option value="">الصورة الافتراضية</option>` + state.assets.filter(asset => !asset.is_hidden).map(asset =>
+      `<option value="${escapeHtml(asset.asset_key)}" ${asset.asset_key === state.productAssetKey ? "selected" : ""}>${escapeHtml(asset.asset_key)}</option>`).join("");
   }
 
   async function saveProduct(event) {
     if (event.submitter?.value === "cancel") return;
     event.preventDefault();
+    const payload = {
+      code: $("#product-code").value.trim(),
+      name: $("#product-name").value.trim(),
+      gender: $("#product-gender").value,
+      sort_order: Number($("#product-order").value || 0),
+      is_featured: $("#product-featured").checked,
+      image_asset_key: $("#product-image").value || null,
+      updated_by: state.session.user.id
+    };
     const id = $("#product-id").value;
-    const payload = { code: $("#product-code").value.trim(), name: $("#product-name").value.trim(), gender: $("#product-gender").value, sort_order: Number($("#product-order").value) || 0, is_featured: $("#product-featured").checked, updated_by: state.session.user.id };
     const result = id ? await client.from("products").update(payload).eq("id", id) : await client.from("products").insert(payload);
     if (result.error) return toast(result.error.message);
     $("#product-dialog").close();
-    await loadData(); renderView(); toast("تم حفظ المنتج");
+    await loadData(); renderProducts(); toast("تم حفظ المنتج");
   }
 
   async function productAction(action, id) {
-    if (action === "edit") return openProductDialog(id);
     const product = state.products.find(item => item.id === id);
-    const result = await client.from("products").update({ is_hidden: !product.is_hidden, updated_by: state.session.user.id }).eq("id", id);
+    if (!product) return;
+    if (action === "edit") return openProductDialog(id);
+    if (action === "delete" && !window.confirm(`حذف المنتج «${product.name}» نهائياً؟`)) return;
+    const result = action === "delete"
+      ? await client.from("products").delete().eq("id", id)
+      : await client.from("products").update({ is_hidden: !product.is_hidden, updated_by: state.session.user.id }).eq("id", id);
     if (result.error) return toast(result.error.message);
-    await loadData(); renderView(); toast(product.is_hidden ? "تم استرجاع المنتج" : "تم إخفاء المنتج");
+    await loadData(); renderProducts(); toast(action === "delete" ? "تم حذف المنتج" : "تم تحديث حالة المنتج");
   }
 
   async function uploadAsset(event) {
     const file = event.target.files?.[0];
     if (!file) return;
-    const safeName = file.name.toLowerCase().replace(/[^a-z0-9.-]+/g, "-");
-    const path = `${Date.now()}-${safeName}`;
+    if (file.size > 8 * 1024 * 1024) return toast("حجم الصورة أكبر من 8MB");
+    const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
+    const path = `uploads/${Date.now()}-${safeName}`;
     const upload = await client.storage.from("atheer-media").upload(path, file, { upsert: false, contentType: file.type });
     if (upload.error) return toast(upload.error.message);
-    const publicUrl = client.storage.from("atheer-media").getPublicUrl(path).data.publicUrl;
-    const asset = await client.from("site_assets").insert({ asset_key: path.replace(/\.[^.]+$/, ""), storage_path: path, public_url: publicUrl, alt_text: file.name, placement: "other" });
-    if (asset.error) return toast(asset.error.message);
+    const { data: publicData } = client.storage.from("atheer-media").getPublicUrl(path);
+    const key = `upload-${Date.now()}`;
+    const asset = await client.from("site_assets").insert({
+      asset_key: key, storage_path: path, public_url: publicData.publicUrl,
+      alt_text: file.name.replace(/\.[^.]+$/, ""), placement: "product", sort_order: state.assets.length + 1,
+      updated_by: state.session.user.id
+    });
+    if (asset.error) {
+      await client.storage.from("atheer-media").remove([path]);
+      return toast(asset.error.message);
+    }
+    event.target.value = "";
     await loadData(); renderMedia(); toast("تم رفع الصورة");
   }
 
   async function assetAction(action, id) {
-    if (action !== "toggle") return;
     const asset = state.assets.find(item => item.id === id);
-    const result = await client.from("site_assets").update({ is_hidden: !asset.is_hidden, updated_by: state.session.user.id }).eq("id", id);
-    if (result.error) return toast(result.error.message);
-    await loadData(); renderMedia(); toast(asset.is_hidden ? "تم استرجاع الصورة" : "تم إخفاء الصورة");
+    if (!asset) return;
+    if (action === "delete" && !window.confirm(`حذف الصورة «${asset.asset_key}» نهائياً؟`)) return;
+    if (action === "delete") {
+      const result = await client.from("site_assets").delete().eq("id", id);
+      if (result.error) return toast(result.error.message);
+      if (asset.storage_path) await client.storage.from("atheer-media").remove([asset.storage_path]);
+    } else {
+      const result = await client.from("site_assets").update({ is_hidden: !asset.is_hidden, updated_by: state.session.user.id }).eq("id", id);
+      if (result.error) return toast(result.error.message);
+    }
+    await loadData(); renderMedia(); toast(action === "delete" ? "تم حذف الصورة" : "تم تحديث حالة الصورة");
   }
 
   function openContentDialog(id) {
     const item = state.content.find(content => content.id === id);
     if (!item) return;
     $("#content-id").value = item.id;
-    $("#content-key").value = item.content_key;
     $("#content-label").value = item.label || item.content_key;
     $("#content-value").value = item.value;
+    $("#content-hidden").checked = Boolean(item.is_hidden);
     $("#content-dialog").showModal();
+  }
+
+  async function contentAction(action, id) {
+    const item = state.content.find(content => content.id === id);
+    if (!item) return;
+    if (action === "edit") return openContentDialog(id);
+    if (action === "delete" && !window.confirm(`حذف المحتوى «${item.label || item.content_key}» نهائياً؟`)) return;
+    const result = action === "delete"
+      ? await client.from("site_content").delete().eq("id", id)
+      : await client.from("site_content").update({ is_hidden: !item.is_hidden, updated_by: state.session.user.id }).eq("id", id);
+    if (result.error) return toast(result.error.message);
+    await loadData(); renderContent(); toast(action === "delete" ? "تم حذف المحتوى" : "تم تحديث حالة المحتوى");
   }
 
   async function saveContent(event) {
     if (event.submitter?.value === "cancel") return;
     event.preventDefault();
-    const result = await client.from("site_content").update({ label: $("#content-label").value.trim(), value: $("#content-value").value, updated_by: state.session.user.id }).eq("id", $("#content-id").value);
+    const result = await client.from("site_content").update({
+      label: $("#content-label").value.trim(),
+      value: $("#content-value").value,
+      is_hidden: $("#content-hidden").checked,
+      updated_by: state.session.user.id
+    }).eq("id", $("#content-id").value);
     if (result.error) return toast(result.error.message);
     $("#content-dialog").close(); await loadData(); renderContent(); toast("تم حفظ المحتوى");
   }
 
   async function saveSettings() {
-    const inputs = [...document.querySelectorAll("[data-setting-key]")];
-    for (const input of inputs) {
-      const result = await client.from("settings").update({ value: input.value, updated_by: state.session.user.id }).eq("setting_key", input.dataset.settingKey);
+    for (const input of [...document.querySelectorAll("[data-setting-key]")]) {
+      const result = await client.from("settings").upsert({
+        setting_key: input.dataset.settingKey,
+        value: input.value,
+        label: input.dataset.settingLabel || input.dataset.settingKey,
+        updated_by: state.session.user.id
+      });
       if (result.error) return toast(result.error.message);
+      const publicCopy = await client.from("site_content").upsert({
+        content_key: `setting_${input.dataset.settingKey}`,
+        value: input.value,
+        label: input.dataset.settingLabel || input.dataset.settingKey,
+        is_hidden: false,
+        updated_by: state.session.user.id
+      }, { onConflict: "content_key" });
+      if (publicCopy.error) return toast(publicCopy.error.message);
     }
     await loadData(); toast("تم حفظ الإعدادات");
+  }
+
+  async function deleteSetting(key) {
+    if (!window.confirm("حذف هذا الإعداد نهائياً؟")) return;
+    const result = await client.from("settings").delete().eq("setting_key", key);
+    if (result.error) return toast(result.error.message);
+    await loadData(); renderSettings(); toast("تم حذف الإعداد");
   }
 
   async function boot() {
@@ -254,13 +379,14 @@
     document.querySelectorAll(".nav-item[data-view]").forEach(item => item.addEventListener("click", () => navView(item.dataset.view)));
     $("#mobile-menu").addEventListener("click", () => $(".sidebar").classList.toggle("open"));
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => {});
-    if (!isConfigured()) {
-      setLoginError("لوحة التحكم غير مهيأة بعد: أضف رابط Supabase والمفتاح العام في admin/config.js.");
+    if (!configured()) {
+      setLoginError("تعذر الاتصال بالخدمة. حاول مرة أخرى لاحقاً.");
       return;
     }
     const { data } = await client.auth.getSession();
     if (data.session) {
-      try { showApp(data.session); await loadData(); renderView(); } catch (error) { showAuth(); setLoginError(error.message || "تعذر تحميل البيانات."); }
+      try { showApp(data.session); await loadData(); renderView(); }
+      catch (error) { showAuth(); setLoginError(error.message || "تعذر تحميل البيانات."); }
     }
     client.auth.onAuthStateChange((_event, session) => { if (session) showApp(session); else showAuth(); });
   }

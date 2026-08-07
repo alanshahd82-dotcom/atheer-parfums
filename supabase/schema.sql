@@ -127,6 +127,12 @@ create policy "admins read settings"
   to authenticated
   using (public.is_admin());
 
+drop policy if exists "public can read settings" on public.settings;
+create policy "public can read settings"
+  on public.settings for select
+  to anon, authenticated
+  using (true);
+
 drop policy if exists "admins manage settings" on public.settings;
 create policy "admins manage settings"
   on public.settings for all

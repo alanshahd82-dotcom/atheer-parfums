@@ -1040,6 +1040,7 @@
       }
 
       function removeItem(name) { sel = sel.filter(s => s.name !== name); save(); render(); }
+      window.atheerAddItem = addItem;
 
       function render() {
         const n = sel.length;
