@@ -79,6 +79,7 @@
           <label>القسم<select id="product-gender"><option value="femme">نسائي</option><option value="homme">رجالي</option></select></label>
           <label>ترتيب الظهور<input id="product-order" type="number" min="0" value="0" /></label>
         </div>
+        <label>صورة المنتج<select id="product-image"><option value="">الصورة الافتراضية</option></select></label>
         <label class="check-label"><input id="product-featured" type="checkbox" checked /> يظهر في المنتجات المميزة</label>
         <div class="dialog-actions"><button class="secondary-button" value="cancel" type="submit">إلغاء</button><button class="primary-button" id="product-save" value="default" type="submit">حفظ المنتج</button></div>
       </form>
@@ -90,6 +91,7 @@
         <input id="content-id" type="hidden" /><input id="content-key" type="hidden" />
         <label>اسم الحقل<input id="content-label" required /></label>
         <label>القيمة<textarea id="content-value" required rows="6"></textarea></label>
+        <label class="check-label"><input id="content-hidden" type="checkbox" /> إخفاء هذا المحتوى من الموقع</label>
         <div class="dialog-actions"><button class="secondary-button" value="cancel" type="submit">إلغاء</button><button class="primary-button" value="default" type="submit">حفظ المحتوى</button></div>
       </form>
     </dialog>
