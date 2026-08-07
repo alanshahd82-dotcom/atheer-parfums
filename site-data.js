@@ -104,6 +104,7 @@
   }
   function updateSettings(settings) {
     window.ATHEER_SETTINGS = Object.fromEntries(settings.map(item => [item.setting_key, item.value]));
+    document.dispatchEvent(new CustomEvent("atheer:settings-updated", { detail: window.ATHEER_SETTINGS }));
     const delivery = window.ATHEER_SETTINGS.delivery_text;
     const price = window.ATHEER_SETTINGS.bundle_price;
     if (delivery) document.querySelectorAll(".hero-delivery-badge, .offer-price-unit small").forEach(element => element.textContent = delivery);

@@ -983,7 +983,27 @@
       'use strict';
 
       /* ── Constants ── */
-      const WA = "212661852411";
+      let whatsappNumber = "212661852411";
+      let bundlePrice = "199";
+      let deliveryText = "توصيل مجاني على جميع الطلبات";
+
+      function applyStoreSettings(settings) {
+        if (!settings) return;
+        whatsappNumber = String(settings.whatsapp_number || whatsappNumber).replace(/[^\d]/g, "");
+        bundlePrice = String(settings.bundle_price || bundlePrice);
+        deliveryText = String(settings.delivery_text || deliveryText);
+        document.querySelectorAll(".offer-price-num, .pc-price, .offer-price-unit small, .hero-delivery-badge").forEach(element => {
+          if (element.classList.contains("offer-price-num") || element.classList.contains("pc-price")) {
+            element.textContent = element.classList.contains("pc-price") ? `${bundlePrice} درهم` : bundlePrice;
+          } else {
+            element.textContent = deliveryText;
+          }
+        });
+        document.querySelectorAll("[data-store-whatsapp]").forEach(link => {
+          link.href = `https://wa.me/${whatsappNumber}`;
+        });
+      }
+      document.addEventListener("atheer:settings-updated", event => applyStoreSettings(event.detail));
 
       /* ── Header scroll ── */
       const header = document.getElementById("site-header");
@@ -1054,7 +1074,7 @@
 
         /* Cards */
         document.querySelectorAll(".p-card").forEach(c => {
-          const s = !!sel.find(x => x.name === c.dataset.name);
+        const s = !!sel.find(x => x.name === decodeURIComponent(c.dataset.name || ""));
           c.classList.toggle("selected", s);
           c.classList.toggle("maxed", n >= 4 && !s);
         });
@@ -1088,7 +1108,7 @@
 
         /* Full list highlights */
         document.querySelectorAll(".fl-item").forEach(item => {
-          const s = !!sel.find(x => x.name === item.dataset.name);
+          const s = !!sel.find(x => x.name === decodeURIComponent(item.dataset.name || ""));
           item.classList.toggle("fl-selected", s);
         });
       }
@@ -1113,7 +1133,7 @@
             '</li>'
           ).join('');
           listEl.querySelectorAll(".cart-row-del").forEach(b => b.addEventListener("click", () => removeItem(b.dataset.name)));
-          if (noteEl) noteEl.textContent = n < 4 ? "⚠ يجب اختيار " + (4-n) + " عطر إضافي" : "✦ باقتك جاهزة — 199 MAD";
+          if (noteEl) noteEl.textContent = n < 4 ? "⚠ يجب اختيار " + (4-n) + " عطر إضافي" : "✦ باقتك جاهزة — " + bundlePrice + " MAD";
         }
       }
 
@@ -1268,7 +1288,7 @@
         if (box) {
           box.innerHTML = '<strong class="summary-title">🛍️ باقتك المختارة (4 عطور)</strong>' +
             sel.map((s,i) => '<span style="display:block;color:var(--cream)"><span style="color:var(--gold-light);font-family:\'Cormorant Garamond\',serif;font-weight:600">' + (i+1) + '. ' + s.num + '</span> — ' + s.name + '</span>').join('') +
-            '<br><span style="color:var(--gold-light)">💰 199 MAD</span> &nbsp;·&nbsp; 🚚 توصيل مجاني';
+            '<br><span style="color:var(--gold-light)">💰 ' + bundlePrice + ' MAD</span> &nbsp;·&nbsp; 🚚 ' + deliveryText;
         }
         ["order-name","order-phone","order-city","order-address"].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
         document.getElementById("order-overlay").classList.add("open");
@@ -1309,8 +1329,8 @@
           "🧴 العطور المختارة:",
           items,
           "",
-          "💰 المبلغ: 199 درهم",
-          "🚚 التوصيل: مجاني",
+          "💰 المبلغ: " + bundlePrice + " درهم",
+          "🚚 التوصيل: " + deliveryText,
           "",
           "👤 بيانات الزبون:",
           "  • الاسم: " + name,
@@ -1321,7 +1341,7 @@
           "━━━━━━━━━━━━━━━━━━━━"
         ].join("\n");
 
-        window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+        window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
 
         setTimeout(() => {
           sel = []; save(); render();
